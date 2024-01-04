@@ -6,7 +6,7 @@
 /*   By: hpatsi <hpatsi@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 13:12:50 by hpatsi            #+#    #+#             */
-/*   Updated: 2024/01/03 16:56:34 by hpatsi           ###   ########.fr       */
+/*   Updated: 2024/01/04 12:03:36 by hpatsi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,5 +21,6 @@
 char	**parse_map(char	*map_file);
 
 int		ft_strsfree(char **strs);
+int		try_open_file(char	*file);
 
 #endif
