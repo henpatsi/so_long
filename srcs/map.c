@@ -6,7 +6,7 @@
 /*   By: hpatsi <hpatsi@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 16:26:20 by hpatsi            #+#    #+#             */
-/*   Updated: 2024/01/04 14:23:48 by hpatsi           ###   ########.fr       */
+/*   Updated: 2024/01/04 14:31:56 by hpatsi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,21 +33,11 @@ int	fill_grid(char **grid, int size[], int map_fd)
 	return (1);
 }
 
-char	**parse_map(char	*map_file)
+char	**create_grid(char	*map_file, int size[])
 {
-	char	**grid;
 	int		map_fd;
-	int		size[2];
+	char	**grid;
 
-	map_fd = try_open_file(map_file);
-	if (map_fd == -1)
-		return (0);
-	if (!check_extension(map_file) || !check_symbols(map_fd, size))
-	{
-		close(map_fd);
-		return (0);
-	}
-	close(map_fd);
 	map_fd = try_open_file(map_file);
 	if (map_fd == -1)
 		return (0);
@@ -65,4 +55,21 @@ char	**parse_map(char	*map_file)
 	}
 	close(map_fd);
 	return (grid);
+}
+
+char	**parse_map(char	*map_file)
+{
+	int		map_fd;
+	int		size[2];
+
+	map_fd = try_open_file(map_file);
+	if (map_fd == -1)
+		return (0);
+	if (!check_extension(map_file) || !check_symbols(map_fd, size))
+	{
+		close(map_fd);
+		return (0);
+	}
+	close(map_fd);
+	return (create_grid(map_file, size));
 }

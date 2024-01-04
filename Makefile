@@ -6,7 +6,7 @@
 #    By: hpatsi <hpatsi@student.hive.fi>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/03 13:12:13 by hpatsi            #+#    #+#              #
-#    Updated: 2024/01/04 14:22:04 by hpatsi           ###   ########.fr        #
+#    Updated: 2024/01/04 14:28:08 by hpatsi           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ NAME = so_long
 
 LIBFT = ./libft/libft.a
 
-SOURCES = $(addprefix ./srcs/, so_long.c map.c check.c helpers.c)
+SOURCES = $(addprefix ./srcs/, so_long.c map.c map_check.c helpers.c)
 
 OBJECTS = $(SOURCES:.c=.o)
 
