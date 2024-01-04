@@ -6,7 +6,7 @@
 /*   By: hpatsi <hpatsi@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 13:12:38 by hpatsi            #+#    #+#             */
-/*   Updated: 2024/01/04 12:35:46 by hpatsi           ###   ########.fr       */
+/*   Updated: 2024/01/04 14:23:41 by hpatsi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,12 +30,15 @@ int	main(int argc, char **argv)
 
 	if (argc < 2)
 	{
-		ft_putstr_fd("not enough arguments", 2);
+		ft_putstr_fd("not enough arguments\n", 2);
 		return (1);
 	}
 	grid = parse_map(argv[1]);
 	if (grid == 0)
+	{
+		ft_putstr_fd("Error\n", 2); // TODO explicit errors
 		return (1);
+	}
 	print_grid(grid);
 	ft_strsfree(grid);
 	return (0);
