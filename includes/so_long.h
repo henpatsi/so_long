@@ -6,7 +6,7 @@
 /*   By: hpatsi <hpatsi@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 13:12:50 by hpatsi            #+#    #+#             */
-/*   Updated: 2024/01/05 13:08:26 by hpatsi           ###   ########.fr       */
+/*   Updated: 2024/01/05 14:51:50 by hpatsi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,14 +18,30 @@
 
 # include "libft.h"
 
-int		start_game(char **grid);
+# ifndef WIDTH
+#  define WIDTH 512
+# endif
+# ifndef HEIGHT
+#  define HEIGHT 512
+# endif
 
-char	**parse_map(char	*map_file);
+typedef struct s_map
+{
+	char	**grid;
+	int		size[2];
+	int		player[2];
+	int		collectibles;
+}	t_map;
+
+int		start_game(t_map *map);
+
+t_map	*parse_map(char	*map_file);
 int		check_extension(char	*map_file);
 int		check_symbols(int map_fd, int size[]);
 int		check_grid(char **grid, int size[]);
 
 int		ft_strsfree(char **strs);
+int		free_map(t_map *map);
 int		try_open_file(char	*file);
 
 #endif
