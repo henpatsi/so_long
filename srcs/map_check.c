@@ -103,7 +103,7 @@ int	find_path(char **grid, int i, int j)
 	return (0);
 }
 
-int	check_grid(char **grid, int size[])
+int	check_grid(char **grid, int size[], int player[], int *collectibles)
 {
 	int	i;
 	int	j;
@@ -121,9 +121,13 @@ int	check_grid(char **grid, int size[])
 			}
 			if (grid[i][j] == 'P')
 			{
+				player[0] = i;
+				player[1] = j;
 				if (!find_path(grid, i, j))
 					return (0);
 			}
+			if (grid [i][j] == 'C')
+				*collectibles += 1;
 			j++;
 		}
 		i++;

@@ -49,7 +49,7 @@ int	fill_grid(char **grid, int size[], int map_fd)
 	return (1);
 }
 
-char	**create_grid(char	*map_file, int size[])
+char	**create_grid(char	*map_file, int size[], int player[], int *collectibles)
 {
 	int		map_fd;
 	char	**grid;
@@ -63,7 +63,7 @@ char	**create_grid(char	*map_file, int size[])
 		close(map_fd);
 		return (0);
 	}
-	if (!fill_grid(grid, size, map_fd) || !check_grid(grid, size))
+	if (!fill_grid(grid, size, map_fd) || !check_grid(grid, size, player, collectibles))
 	{
 		ft_strsfree(grid);
 		close(map_fd);
@@ -78,6 +78,8 @@ t_map	*parse_map(char	*map_file)
 	int		map_fd;
 	int		size[2];
 	char	**grid;
+	int 	player[2];
+	int 	collectibles;
 
 	map_fd = try_open_file(map_file);
 	if (map_fd == -1)
@@ -88,7 +90,7 @@ t_map	*parse_map(char	*map_file)
 		return (0);
 	}
 	close(map_fd);
-	grid = create_grid(map_file, size);
-	int	player[2] = {3, 1};
-	return (initialize_map(grid, size, player, 1));
+	collectibles = 0;
+	grid = create_grid(map_file, size, player, &collectibles);
+	return (initialize_map(grid, size, player, collectibles));
 }

@@ -34,7 +34,7 @@ void	key_hook(mlx_key_data_t keydata, void* param);
 t_map	*parse_map(char	*map_file);
 int		check_extension(char	*map_file);
 int		check_symbols(int map_fd, int size[]);
-int		check_grid(char **grid, int size[]);
+int		check_grid(char **grid, int size[], int player[], int *collectibles);
 
 int		ft_strsfree(char **strs);
 int		free_map(t_map *map);
