@@ -6,7 +6,7 @@
 /*   By: hpatsi <hpatsi@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 13:12:50 by hpatsi            #+#    #+#             */
-/*   Updated: 2024/01/04 14:28:21 by hpatsi           ###   ########.fr       */
+/*   Updated: 2024/01/05 13:08:26 by hpatsi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,9 @@
 
 # include "libft.h"
 
-char	**parse_map(char	*map_file);
+int		start_game(char **grid);
 
+char	**parse_map(char	*map_file);
 int		check_extension(char	*map_file);
 int		check_symbols(int map_fd, int size[]);
 int		check_grid(char **grid, int size[]);
