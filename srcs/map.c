@@ -6,7 +6,7 @@
 /*   By: hpatsi <hpatsi@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 16:26:20 by hpatsi            #+#    #+#             */
-/*   Updated: 2024/01/05 15:01:11 by hpatsi           ###   ########.fr       */
+/*   Updated: 2024/01/05 16:03:15 by hpatsi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,5 +90,5 @@ t_map	*parse_map(char	*map_file)
 	close(map_fd);
 	grid = create_grid(map_file, size);
 	int	player[2] = {3, 1};
-	return (initialize_map(grid, size, player, 2));
+	return (initialize_map(grid, size, player, 1));
 }

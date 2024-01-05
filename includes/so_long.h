@@ -6,7 +6,7 @@
 /*   By: hpatsi <hpatsi@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 13:12:50 by hpatsi            #+#    #+#             */
-/*   Updated: 2024/01/05 14:51:50 by hpatsi           ###   ########.fr       */
+/*   Updated: 2024/01/05 16:21:18 by hpatsi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,13 +17,7 @@
 # include <fcntl.h>
 
 # include "libft.h"
-
-# ifndef WIDTH
-#  define WIDTH 512
-# endif
-# ifndef HEIGHT
-#  define HEIGHT 512
-# endif
+# include "MLX42.h"
 
 typedef struct s_map
 {
@@ -34,6 +28,8 @@ typedef struct s_map
 }	t_map;
 
 int		start_game(t_map *map);
+
+void	key_hook(mlx_key_data_t keydata, void* param);
 
 t_map	*parse_map(char	*map_file);
 int		check_extension(char	*map_file);
