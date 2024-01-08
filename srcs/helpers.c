@@ -6,29 +6,14 @@
 /*   By: hpatsi <hpatsi@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 16:28:49 by hpatsi            #+#    #+#             */
-/*   Updated: 2024/01/08 11:47:53 by hpatsi           ###   ########.fr       */
+/*   Updated: 2024/01/08 14:13:06 by hpatsi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-// int	ft_strsfree(char **strs)
-// {
-// 	int	i;
-
-// 	i = 0;
-// 	while (strs[i] != 0)
-// 	{
-// 		free(strs[i]);
-// 		i++;
-// 	}
-// 	free(strs);
-// 	return (0);
-// }
-
 int	free_map(t_map *map)
 {
-	// ft_strsfree(map->grid);
 	free(map);
 	return (0);
 }

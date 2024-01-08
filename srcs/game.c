@@ -6,7 +6,7 @@
 /*   By: hpatsi <hpatsi@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/05 11:42:27 by hpatsi            #+#    #+#             */
-/*   Updated: 2024/01/08 10:00:15 by hpatsi           ###   ########.fr       */
+/*   Updated: 2024/01/08 13:47:35 by hpatsi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int	start_game(t_map *map)
 	if (!mlx)
 		return (error(map));
 
-	if (!initialize_textures(mlx, map))
+	if (!initialize_images(mlx, map))
 		return (error(map));
 
 	mlx_key_hook(mlx, &player_key_hook, map);

@@ -6,7 +6,7 @@
 /*   By: hpatsi <hpatsi@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 08:33:35 by hpatsi            #+#    #+#             */
-/*   Updated: 2024/01/08 13:35:13 by hpatsi           ###   ########.fr       */
+/*   Updated: 2024/01/08 14:08:40 by hpatsi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,14 +90,22 @@ void place_tiles(mlx_t *mlx, t_map *map, mlx_image_t *floor, mlx_image_t *wall, 
 	set_tile_order(map, coll, floor, floor_count);
 }
 
-int	initialize_textures(mlx_t *mlx, t_map *map)
+int	initialize_images(mlx_t *mlx, t_map *map)
 {
+	// mlx_texture_t *floor_texture;
 	mlx_image_t	*floor_img;
+
+	// floor_texture = mlx_load_png(FLOOR_TEXTURE);
+	// if (!floor_texture)
+	// 	return (0);
+
+	floor_img = initialize_tile(mlx, 0x254d1aFF);
+	//mlx_texture_to_image(mlx, floor_texture);
+	
 	mlx_image_t	*wall_img;
 	mlx_image_t *exit_img;
 	mlx_image_t *coll_img;
 	
-	floor_img = initialize_tile(mlx, 0x254d1aFF);
 	wall_img = initialize_tile(mlx, 0x422009FF);
 	exit_img = initialize_tile(mlx, 0xFFFFFFFF);
 	coll_img = initialize_tile(mlx, 0xFFFF00FF);

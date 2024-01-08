@@ -6,7 +6,7 @@
 /*   By: hpatsi <hpatsi@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 16:26:20 by hpatsi            #+#    #+#             */
-/*   Updated: 2024/01/08 13:27:47 by hpatsi           ###   ########.fr       */
+/*   Updated: 2024/01/08 14:12:35 by hpatsi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,6 @@ t_map	*parse_map(char	*map_file)
 		close(map_fd);
 		return (0);
 	}
-	ft_printf("map size = %d x %d\n", size[0], size[1]);
 	close(map_fd);
 	collectibles = 0;
 	grid = create_grid(map_file, size, player_pos, &collectibles);

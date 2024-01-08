@@ -6,7 +6,7 @@
 /*   By: hpatsi <hpatsi@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 13:12:50 by hpatsi            #+#    #+#             */
-/*   Updated: 2024/01/08 12:52:52 by hpatsi           ###   ########.fr       */
+/*   Updated: 2024/01/08 13:54:32 by hpatsi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,24 @@
 # ifndef TILE_WIDTH
 #  define TILE_WIDTH 50
 # endif
-
 # ifndef TILE_HEIGHT
 #  define TILE_HEIGHT 50
+# endif
+
+# ifndef FLOOR_TEXTURE
+#  define FLOOR_TEXTURE "./textures/floor.png"
+# endif
+# ifndef WALL_TEXTURE
+#  define WALL_TEXTURE "./textures/wall.png"
+# endif
+# ifndef PLAYER_TEXTURE
+#  define PLAYER_TEXTURE "./textures/player.png"
+# endif
+# ifndef EXIT_TEXTURE
+#  define EXIT_TEXTURE "./textures/exit.png"
+# endif
+# ifndef COLLECTABLE_TEXTURE
+#  define COLLECTABLE_TEXTURE "./textures/collectable.png"
 # endif
 
 typedef struct s_object
@@ -49,7 +64,7 @@ typedef struct s_map
 }	t_map;
 
 int		start_game(t_map *map);
-int		initialize_textures(mlx_t *mlx, t_map *map);
+int		initialize_images(mlx_t *mlx, t_map *map);
 void	player_key_hook(mlx_key_data_t keydata, void* param);
 
 t_map	*parse_map(char	*map_file);
