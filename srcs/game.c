@@ -21,9 +21,6 @@ int	error(t_map *map)
 
 void	window_input_hook(void *param)
 {
-	mlx_t	*mlx;
-
-	mlx = param;
 	if (mlx_is_key_down(param, MLX_KEY_ESCAPE))
 		mlx_close_window(param);
 }
