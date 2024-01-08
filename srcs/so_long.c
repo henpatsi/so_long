@@ -6,7 +6,7 @@
 /*   By: hpatsi <hpatsi@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 13:12:38 by hpatsi            #+#    #+#             */
-/*   Updated: 2024/01/05 16:13:35 by hpatsi           ###   ########.fr       */
+/*   Updated: 2024/01/08 12:53:05 by hpatsi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,18 +14,22 @@
 
 void	print_map(t_map *map)
 {
-	int	i;
-
 	ft_printf("\nCreated map:\n\n");
-	i = 0;
-	while (map->grid[i] != 0)
+	int i = 0;
+	while (i < map->size[1])
 	{
-		ft_printf("%s\n", map->grid[i]);
+		int j = 0;
+		while (j < map->size[0])
+		{
+			ft_printf("%c", map->grid[i][j].label);
+			j++;
+		}
+		ft_printf("\n");
 		i++;
 	}
 
 	ft_printf("\nsize: %d, %d\n", map->size[0], map->size[1]);
-	ft_printf("player position: %d, %d\n", map->player[0], map->player[1]);
+	ft_printf("player position: %d, %d\n", map->player_pos[0], map->player_pos[1]);
 	ft_printf("collectible count: %d\n\n", map->collectibles);
 }
 

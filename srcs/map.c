@@ -6,15 +6,16 @@
 /*   By: hpatsi <hpatsi@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 16:26:20 by hpatsi            #+#    #+#             */
-/*   Updated: 2024/01/05 16:03:15 by hpatsi           ###   ########.fr       */
+/*   Updated: 2024/01/08 12:50:41 by hpatsi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-t_map	*initialize_map(char **grid, int size[], int player[], int collectibles)
+t_map	*initialize_map(t_gridpos **grid, int size[], int p_pos[], int collectibles)
 {
-	t_map	*map;
+	t_map		*map;
+	t_object	*player;
 
 	map = malloc(sizeof(t_map));
 	if (map == 0)
@@ -22,16 +23,24 @@ t_map	*initialize_map(char **grid, int size[], int player[], int collectibles)
 	map->grid = grid;
 	map->size[0] = size[0];
 	map->size[1] = size[1];
-	map->player[0] = player[0];
-	map->player[1] = player[1];
 	map->collectibles = collectibles;
+	map->player_pos[0] = p_pos[0];
+	map->player_pos[1] = p_pos[1];
+	player = malloc(sizeof(t_object));
+	if (player == 0)
+	{
+		free_map(map);
+		return (0);
+	}
+	map->player = player;
 	return (map);
 }
 
-int	fill_grid(char **grid, int size[], int map_fd)
+int	fill_grid(t_gridpos **grid, int size[], int map_fd)
 {
-	int		i;
-	char	*line;
+	int			i;
+	int			j;
+	char		*line;
 
 	i = 0;
 	while (i < size[1])
@@ -39,33 +48,38 @@ int	fill_grid(char **grid, int size[], int map_fd)
 		line = get_next_line(map_fd);
 		if (line == 0)
 			return (0);
-		grid[i] = ft_strtrim(line, "\n");
-		free(line);
+		j = 0;
+		grid[i] = ft_calloc(size[0], sizeof(t_gridpos));
 		if (grid[i] == 0)
 			return (0);
+		while(line[j] != 0 && line[j] != '\n')
+		{
+			grid[i][j].label = line[j];
+			j++;
+		}
+		free(line);
 		i++;
 	}
-	grid[i] = 0;
 	return (1);
 }
 
-char	**create_grid(char	*map_file, int size[], int player[], int *collectibles)
+t_gridpos	**create_grid(char	*map_file, int size[], int player_pos[], int *collectibles)
 {
-	int		map_fd;
-	char	**grid;
+	int			map_fd;
+	t_gridpos	**grid;
 
 	map_fd = try_open_file(map_file);
 	if (map_fd == -1)
 		return (0);
-	grid = ft_calloc(size[1] + 1, sizeof(char *));
+	grid = ft_calloc(size[1], sizeof(t_gridpos *));
 	if (grid == 0)
 	{
 		close(map_fd);
 		return (0);
 	}
-	if (!fill_grid(grid, size, map_fd) || !check_grid(grid, size, player, collectibles))
+	if (!fill_grid(grid, size, map_fd) || !check_grid(grid, size, player_pos, collectibles))
 	{
-		ft_strsfree(grid);
+		// ft_strsfree(grid);
 		close(map_fd);
 		return (0);
 	}
@@ -75,11 +89,11 @@ char	**create_grid(char	*map_file, int size[], int player[], int *collectibles)
 
 t_map	*parse_map(char	*map_file)
 {
-	int		map_fd;
-	int		size[2];
-	char	**grid;
-	int 	player[2];
-	int 	collectibles;
+	int			map_fd;
+	int			size[2];
+	t_gridpos	**grid;
+	int 		player_pos[2];
+	int 		collectibles;
 
 	map_fd = try_open_file(map_file);
 	if (map_fd == -1)
@@ -91,6 +105,8 @@ t_map	*parse_map(char	*map_file)
 	}
 	close(map_fd);
 	collectibles = 0;
-	grid = create_grid(map_file, size, player, &collectibles);
-	return (initialize_map(grid, size, player, collectibles));
+	grid = create_grid(map_file, size, player_pos, &collectibles);
+	if (grid == 0)
+		return (0);
+	return (initialize_map(grid, size, player_pos, collectibles));
 }

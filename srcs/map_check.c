@@ -6,7 +6,7 @@
 /*   By: hpatsi <hpatsi@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 14:06:13 by hpatsi            #+#    #+#             */
-/*   Updated: 2024/01/05 10:54:04 by hpatsi           ###   ########.fr       */
+/*   Updated: 2024/01/08 12:49:26 by hpatsi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,60 +77,61 @@ int	check_symbols(int map_fd, int size[])
 	return (1);
 }
 
-int	find_path(char **grid, int i, int j)
+int	find_path(t_gridpos **grid, int i, int j)
 {
 	char	symbol;
 
-	if (grid[i] == 0 || grid[i][j] == 0)
+	if (grid[i] == 0 || grid[i][j].label == 0)
 		return (0);
-	symbol = grid[i][j];
+	symbol = grid[i][j].label;
 	if (symbol == '1' || symbol == 'X')
 		return (0);
 	if (symbol == 'E')
 		return (1);
-	grid[i][j] = 'X';
+	grid[i][j].label = 'X';
 	if (find_path(grid, i + 1, j) == 1 || find_path(grid, i - 1, j) == 1)
 	{
-		grid[i][j] = symbol;
+		grid[i][j].label = symbol;
 		return (1);
 	}
 	if (find_path(grid, i, j + 1) == 1 || find_path(grid, i, j - 1) == 1)
 	{
-		grid[i][j] = symbol;
+		grid[i][j].label = symbol;
 		return (1);
 	}
-	grid[i][j] = symbol;
+	grid[i][j].label = symbol;
 	return (0);
 }
 
-int	check_grid(char **grid, int size[], int player[], int *collectibles)
+int	check_grid(t_gridpos **grid, int size[], int player_pos[], int *collectibles)
 {
 	int	i;
 	int	j;
 
 	i = 0;
-	while (grid[i] != 0)
+	while (i < size[0])
 	{
 		j = 0;
-		while (grid[i][j] != 0)
+		while (j < size[1])
 		{
 			if (i == 0 || i == size[1] - 1)
 			{
-				if (grid[i][j] != '1')
+				if (grid[i][j].label != '1')
 					return (0);
 			}
-			if (grid[i][j] == 'P')
+			if (grid[i][j].label == 'P')
 			{
-				player[0] = i;
-				player[1] = j;
+				player_pos[0] = i;
+				player_pos[1] = j;
 				if (!find_path(grid, i, j))
 					return (0);
 			}
-			if (grid [i][j] == 'C')
+			if (grid[i][j].label == 'C')
 				*collectibles += 1;
 			j++;
 		}
 		i++;
 	}
+	
 	return (1);
 }

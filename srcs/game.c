@@ -6,7 +6,7 @@
 /*   By: hpatsi <hpatsi@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/05 11:42:27 by hpatsi            #+#    #+#             */
-/*   Updated: 2024/01/05 16:49:03 by hpatsi           ###   ########.fr       */
+/*   Updated: 2024/01/08 10:00:15 by hpatsi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,48 +19,30 @@ int	error(t_map *map)
 	exit (1);
 }
 
+void	window_input_hook(void *param)
+{
+	mlx_t	*mlx;
+
+	mlx = param;
+	if (mlx_is_key_down(param, MLX_KEY_ESCAPE))
+		mlx_close_window(param);
+}
+
 int	start_game(t_map *map)
 {
 	mlx_t		*mlx;
-	mlx_image_t	*square;
 
-	mlx = mlx_init(map->size[0] * 100, map->size[1] * 100, "so_long", true);
+	mlx = mlx_init(map->size[0] * TILE_WIDTH, map->size[1] * TILE_HEIGHT, "so_long", true);
 	if (!mlx)
 		return (error(map));
 
-	square = mlx_new_image(mlx, 100, 100);
-	if (!square)
+	if (!initialize_textures(mlx, map))
 		return (error(map));
 
-	// FILL SQUARE WITH IMAGE
-	int	y = 0;
-	while (y < 100)
-	{
-		int x = 0;
-		while (x < 100)
-		{
-			mlx_put_pixel(square, x, y, (x + y) * 0xFF0000FF);
-			x++;
-		}
-		y++;
-	}
-
-	// TILE SQUARE ONTO MAP
-	int	i = 0;
-	while (i < 100 * map->size[1])
-	{
-		int j = 0;
-		while (j < 100 * map->size[0])
-		{
-			mlx_image_to_window(mlx, square, i, j);
-			j += 100;
-		}
-		i += 100;
-	}
-
-	mlx_key_hook(mlx, &key_hook, map);
+	mlx_key_hook(mlx, &player_key_hook, map);
+	mlx_loop_hook(mlx, &window_input_hook, mlx);
 	
 	mlx_loop(mlx);
 	mlx_terminate(mlx);
-	return (1);
+	return (0);
 }
