@@ -6,7 +6,7 @@
 /*   By: hpatsi <hpatsi@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 14:06:13 by hpatsi            #+#    #+#             */
-/*   Updated: 2024/01/08 12:49:26 by hpatsi           ###   ########.fr       */
+/*   Updated: 2024/01/08 13:31:13 by hpatsi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,16 +109,17 @@ int	check_grid(t_gridpos **grid, int size[], int player_pos[], int *collectibles
 	int	j;
 
 	i = 0;
-	while (i < size[0])
+	while (i < size[1])
 	{
 		j = 0;
-		while (j < size[1])
+		while (j < size[0])
 		{
 			if (i == 0 || i == size[1] - 1)
 			{
 				if (grid[i][j].label != '1')
 					return (0);
 			}
+			ft_printf("at %d %d\n", i, j);
 			if (grid[i][j].label == 'P')
 			{
 				player_pos[0] = i;

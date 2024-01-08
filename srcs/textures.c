@@ -6,7 +6,7 @@
 /*   By: hpatsi <hpatsi@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 08:33:35 by hpatsi            #+#    #+#             */
-/*   Updated: 2024/01/08 12:55:19 by hpatsi           ###   ########.fr       */
+/*   Updated: 2024/01/08 13:35:13 by hpatsi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,9 +54,11 @@ void set_tile_order(t_map *map, mlx_image_t *coll, mlx_image_t *floor, int floor
 void place_tiles(mlx_t *mlx, t_map *map, mlx_image_t *floor, mlx_image_t *wall, mlx_image_t *exit, mlx_image_t *coll)
 {
 	int	floor_count;
+	int	collectable_count;
 
 	int y = 0;
 	floor_count = 0;
+	collectable_count = 0;
 	while (y < map->size[1])
 	{
 		int x = 0;
@@ -74,7 +76,13 @@ void place_tiles(mlx_t *mlx, t_map *map, mlx_image_t *floor, mlx_image_t *wall, 
 			if (map->grid[y][x].label == 'E')
 				mlx_image_to_window(mlx, exit, x * TILE_WIDTH, y * TILE_HEIGHT);
 			if (map->grid[y][x].label == 'C')
+			{
 				mlx_image_to_window(mlx, coll, x * TILE_WIDTH, y * TILE_HEIGHT);
+				map->grid[y][x].object = malloc(sizeof (t_object));
+				map->grid[y][x].object->instance = collectable_count;
+				map->grid[y][x].object->mlx_image = coll;
+				collectable_count++;
+			}
 			x++;
 		}
 		y++;
