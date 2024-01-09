@@ -6,7 +6,7 @@
 /*   By: hpatsi <hpatsi@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 13:12:50 by hpatsi            #+#    #+#             */
-/*   Updated: 2024/01/09 13:52:30 by hpatsi           ###   ########.fr       */
+/*   Updated: 2024/01/09 14:15:43 by hpatsi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,8 @@
 # include "libft.h"
 # include "MLX42.h"
 
-# ifndef TILE_WIDTH
-#  define TILE_WIDTH 160
-# endif
-# ifndef TILE_HEIGHT
-#  define TILE_HEIGHT 160
+# ifndef TILE_SIZE
+#  define TILE_SIZE 160
 # endif
 
 # ifndef FLOOR_TEXTURE
@@ -61,6 +58,7 @@ typedef struct s_map
 	t_gridpos	**grid;
 	int			size[2];
 	int			collectibles;
+	int			tile_size;
 	t_player	player;
 }	t_map;
 

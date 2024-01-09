@@ -6,7 +6,7 @@
 /*   By: hpatsi <hpatsi@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/05 16:08:29 by hpatsi            #+#    #+#             */
-/*   Updated: 2024/01/09 13:57:00 by hpatsi           ###   ########.fr       */
+/*   Updated: 2024/01/09 14:06:53 by hpatsi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 void	move_player_texture(t_map *map, int up, int right)
 {
-	map->player.instance->y -= up * TILE_HEIGHT;
-	map->player.instance->x += right * TILE_WIDTH;
+	map->player.instance->y -= up * map->tile_size;
+	map->player.instance->x += right * map->tile_size;
 }
 
 void	collect_collectable(t_map *map, mlx_instance_t *collectable)
