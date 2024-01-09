@@ -6,7 +6,7 @@
 /*   By: hpatsi <hpatsi@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 08:33:35 by hpatsi            #+#    #+#             */
-/*   Updated: 2024/01/09 10:29:54 by hpatsi           ###   ########.fr       */
+/*   Updated: 2024/01/09 11:47:15 by hpatsi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,8 +120,6 @@ int	initialize_graphics(mlx_t *mlx, t_map *map)
 		return (0);
 	if (!initialize_images(&images, &textures, mlx))
 		return (0);
-
 	place_tiles(mlx, map, &images);
-	
 	return (1);
 }

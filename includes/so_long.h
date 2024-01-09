@@ -6,7 +6,7 @@
 /*   By: hpatsi <hpatsi@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 13:12:50 by hpatsi            #+#    #+#             */
-/*   Updated: 2024/01/09 10:06:34 by hpatsi           ###   ########.fr       */
+/*   Updated: 2024/01/09 10:54:07 by hpatsi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,10 @@
 # include "MLX42.h"
 
 # ifndef TILE_WIDTH
-#  define TILE_WIDTH 50
+#  define TILE_WIDTH 160
 # endif
 # ifndef TILE_HEIGHT
-#  define TILE_HEIGHT 50
+#  define TILE_HEIGHT 160
 # endif
 
 # ifndef FLOOR_TEXTURE
