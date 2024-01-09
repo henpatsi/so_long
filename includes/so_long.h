@@ -6,7 +6,7 @@
 /*   By: hpatsi <hpatsi@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 13:12:50 by hpatsi            #+#    #+#             */
-/*   Updated: 2024/01/09 13:32:09 by hpatsi           ###   ########.fr       */
+/*   Updated: 2024/01/09 13:52:30 by hpatsi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,13 @@
 #  define COLLECTABLE_TEXTURE "./textures/collectable.png"
 # endif
 
+typedef struct s_player
+{
+	int	x;
+	int	y;
+	mlx_instance_t	*instance;
+}	t_player;
+
 typedef struct s_gridpos
 {
 	char			label;
@@ -54,7 +61,7 @@ typedef struct s_map
 	t_gridpos	**grid;
 	int			size[2];
 	int			collectibles;
-	int			player_pos[2];
+	t_player	player;
 }	t_map;
 
 typedef struct s_textures

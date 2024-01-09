@@ -6,7 +6,7 @@
 /*   By: hpatsi <hpatsi@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 08:33:35 by hpatsi            #+#    #+#             */
-/*   Updated: 2024/01/09 13:41:22 by hpatsi           ###   ########.fr       */
+/*   Updated: 2024/01/09 13:49:27 by hpatsi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void place_tiles(mlx_t *mlx, t_map *map, t_images *images)
 			if (map->grid[y][x].label == 'P')
 			{
 				mlx_image_to_window(mlx, images->player_img, x * TILE_WIDTH, y * TILE_HEIGHT);
-				map->grid[y][x].object = &images->player_img->instances[0];
+				map->player.instance = &images->player_img->instances[0];
 				mlx_set_instance_depth(&images->player_img->instances[0], 0);
 			}
 			if (map->grid[y][x].label == 'E')

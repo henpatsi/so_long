@@ -6,7 +6,7 @@
 /*   By: hpatsi <hpatsi@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 13:12:38 by hpatsi            #+#    #+#             */
-/*   Updated: 2024/01/08 12:53:05 by hpatsi           ###   ########.fr       */
+/*   Updated: 2024/01/09 13:53:02 by hpatsi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	print_map(t_map *map)
 	}
 
 	ft_printf("\nsize: %d, %d\n", map->size[0], map->size[1]);
-	ft_printf("player position: %d, %d\n", map->player_pos[0], map->player_pos[1]);
+	ft_printf("player position: %d, %d\n", map->player.y, map->player.x);
 	ft_printf("collectible count: %d\n\n", map->collectibles);
 }
 

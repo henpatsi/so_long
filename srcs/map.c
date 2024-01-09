@@ -6,7 +6,7 @@
 /*   By: hpatsi <hpatsi@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 16:26:20 by hpatsi            #+#    #+#             */
-/*   Updated: 2024/01/09 13:26:08 by hpatsi           ###   ########.fr       */
+/*   Updated: 2024/01/09 13:48:42 by hpatsi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@ t_map	*initialize_map(t_gridpos **grid, int size[], int p_pos[], int collectible
 	map->size[0] = size[0];
 	map->size[1] = size[1];
 	map->collectibles = collectibles;
-	map->player_pos[0] = p_pos[0];
-	map->player_pos[1] = p_pos[1];
+	map->player.y = p_pos[0];
+	map->player.x = p_pos[1];
 	return (map);
 }
 
