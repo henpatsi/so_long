@@ -6,7 +6,7 @@
 /*   By: hpatsi <hpatsi@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/05 11:42:27 by hpatsi            #+#    #+#             */
-/*   Updated: 2024/01/09 14:18:08 by hpatsi           ###   ########.fr       */
+/*   Updated: 2024/01/09 14:20:26 by hpatsi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,9 @@ void	resize_move_images(t_map *map, t_images images, int new_size)
 		{
 			map->grid[y][x].tile->x = x * map->tile_size;
 			map->grid[y][x].tile->y = y * map->tile_size;
+			x++;
 		}
+		y++;
 	}
 }
 
