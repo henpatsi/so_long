@@ -6,52 +6,30 @@
 /*   By: hpatsi <hpatsi@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 08:33:35 by hpatsi            #+#    #+#             */
-/*   Updated: 2024/01/08 14:08:40 by hpatsi           ###   ########.fr       */
+/*   Updated: 2024/01/09 10:29:54 by hpatsi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-mlx_image_t	*initialize_tile(mlx_t *mlx, int color)
-{
-	mlx_image_t	*tile;
-
-	tile = mlx_new_image(mlx, TILE_WIDTH, TILE_HEIGHT);
-	if (!tile)
-		return (0);
-
-	int	y = 0;
-	while (y < TILE_HEIGHT)
-	{
-		int x = 0;
-		while (x < TILE_WIDTH)
-		{
-			mlx_put_pixel(tile, x, y, color);
-			x++;
-		}
-		y++;
-	}
-	return (tile);
-}
-
-void set_tile_order(t_map *map, mlx_image_t *coll, mlx_image_t *floor, int floor_count)
+void set_tile_order(t_map *map, t_images *images, int floor_count)
 {
 	int i = 0;
 	while (i < floor_count)
 	{
-		mlx_set_instance_depth(&floor->instances[i], -20);
+		mlx_set_instance_depth(&images->floor_img->instances[i], -20);
 		i++;
 	}
 	i = 0;
 	while (i < map->collectibles)
 	{
-		mlx_set_instance_depth(&coll->instances[i], 0);
+		mlx_set_instance_depth(&images->collectable_img->instances[i], 0);
 		i++;
 	}
 	mlx_set_instance_depth(&map->player->mlx_image->instances[0], 10);
 }
 
-void place_tiles(mlx_t *mlx, t_map *map, mlx_image_t *floor, mlx_image_t *wall, mlx_image_t *exit, mlx_image_t *coll)
+void place_tiles(mlx_t *mlx, t_map *map, t_images *images)
 {
 	int	floor_count;
 	int	collectable_count;
@@ -66,56 +44,84 @@ void place_tiles(mlx_t *mlx, t_map *map, mlx_image_t *floor, mlx_image_t *wall, 
 		{
 			if (map->grid[y][x].label != '1')
 			{
-				mlx_image_to_window(mlx, floor, x * TILE_WIDTH, y * TILE_HEIGHT);
+				mlx_image_to_window(mlx, images->floor_img, x * TILE_WIDTH, y * TILE_HEIGHT);
 				floor_count++;
 			}
 			else
-				mlx_image_to_window(mlx, wall, x * TILE_WIDTH, y * TILE_HEIGHT);
+				mlx_image_to_window(mlx, images->wall_img, x * TILE_WIDTH, y * TILE_HEIGHT);
 			if (map->grid[y][x].label == 'P')
-				mlx_image_to_window(mlx, map->player->mlx_image, x * TILE_WIDTH, y * TILE_HEIGHT);
+			{
+				mlx_image_to_window(mlx, images->player_img, x * TILE_WIDTH, y * TILE_HEIGHT);
+				map->player->mlx_image = images->player_img;
+			}
 			if (map->grid[y][x].label == 'E')
-				mlx_image_to_window(mlx, exit, x * TILE_WIDTH, y * TILE_HEIGHT);
+				mlx_image_to_window(mlx, images->exit_img, x * TILE_WIDTH, y * TILE_HEIGHT);
 			if (map->grid[y][x].label == 'C')
 			{
-				mlx_image_to_window(mlx, coll, x * TILE_WIDTH, y * TILE_HEIGHT);
+				mlx_image_to_window(mlx, images->collectable_img, x * TILE_WIDTH, y * TILE_HEIGHT);
 				map->grid[y][x].object = malloc(sizeof (t_object));
 				map->grid[y][x].object->instance = collectable_count;
-				map->grid[y][x].object->mlx_image = coll;
+				map->grid[y][x].object->mlx_image = images->collectable_img;
 				collectable_count++;
 			}
 			x++;
 		}
 		y++;
 	}
-	set_tile_order(map, coll, floor, floor_count);
+	set_tile_order(map, images, floor_count);
 }
 
-int	initialize_images(mlx_t *mlx, t_map *map)
+int	initialize_textures(t_textures *textures)
 {
-	// mlx_texture_t *floor_texture;
-	mlx_image_t	*floor_img;
-
-	// floor_texture = mlx_load_png(FLOOR_TEXTURE);
-	// if (!floor_texture)
-	// 	return (0);
-
-	floor_img = initialize_tile(mlx, 0x254d1aFF);
-	//mlx_texture_to_image(mlx, floor_texture);
-	
-	mlx_image_t	*wall_img;
-	mlx_image_t *exit_img;
-	mlx_image_t *coll_img;
-	
-	wall_img = initialize_tile(mlx, 0x422009FF);
-	exit_img = initialize_tile(mlx, 0xFFFFFFFF);
-	coll_img = initialize_tile(mlx, 0xFFFF00FF);
-	if (!floor_img || !wall_img || !exit_img || !coll_img)
+	textures->player_tex = mlx_load_png(PLAYER_TEXTURE);
+	if (!textures->player_tex)
 		return (0);
-	map->player->mlx_image = initialize_tile(mlx, 0x000000FF);
-	if (!map->player->mlx_image)
+	textures->floor_tex = mlx_load_png(FLOOR_TEXTURE);
+	if (!textures->floor_tex)
+		return (0);
+	textures->wall_tex = mlx_load_png(WALL_TEXTURE);
+	if (!textures->wall_tex)
+		return (0);
+	textures->exit_tex = mlx_load_png(EXIT_TEXTURE);
+	if (!textures->exit_tex)
+		return (0);
+	textures->collectable_tex = mlx_load_png(COLLECTABLE_TEXTURE);
+	if (!textures->collectable_tex)
+		return (0);
+	return (1);
+}
+
+int	initialize_images(t_images *images, t_textures *textures, mlx_t *mlx)
+{
+	images->player_img = mlx_texture_to_image(mlx, textures->player_tex);
+	if (!images->player_img)
+		return (0);
+	images->floor_img = mlx_texture_to_image(mlx, textures->floor_tex);
+	if (!images->floor_img)
+		return (0);
+	images->wall_img = mlx_texture_to_image(mlx, textures->wall_tex);
+	if (!images->wall_img)
+		return (0);
+	images->exit_img = mlx_texture_to_image(mlx, textures->exit_tex);
+	if (!images->exit_img)
+		return (0);
+	images->collectable_img = mlx_texture_to_image(mlx, textures->collectable_tex);
+	if (!images->collectable_img)
+		return (0);
+	return (1);
+}
+
+int	initialize_graphics(mlx_t *mlx, t_map *map)
+{
+	t_textures	textures;
+	t_images	images;
+
+	if (!initialize_textures(&textures))
+		return (0);
+	if (!initialize_images(&images, &textures, mlx))
 		return (0);
 
-	place_tiles(mlx, map, floor_img, wall_img, exit_img, coll_img);
+	place_tiles(mlx, map, &images);
 	
 	return (1);
 }

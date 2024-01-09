@@ -6,7 +6,7 @@
 /*   By: hpatsi <hpatsi@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 13:12:50 by hpatsi            #+#    #+#             */
-/*   Updated: 2024/01/08 13:54:32 by hpatsi           ###   ########.fr       */
+/*   Updated: 2024/01/09 10:06:34 by hpatsi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,8 +63,26 @@ typedef struct s_map
 	t_object	*player;
 }	t_map;
 
+typedef struct s_textures
+{
+	mlx_texture_t	*player_tex;
+	mlx_texture_t	*floor_tex;
+	mlx_texture_t	*wall_tex;
+	mlx_texture_t	*exit_tex;
+	mlx_texture_t	*collectable_tex;
+}	t_textures;
+
+typedef struct s_images
+{
+	mlx_image_t	*player_img;
+	mlx_image_t	*floor_img;
+	mlx_image_t	*wall_img;
+	mlx_image_t	*exit_img;
+	mlx_image_t	*collectable_img;
+}	t_images;
+
 int		start_game(t_map *map);
-int		initialize_images(mlx_t *mlx, t_map *map);
+int		initialize_graphics(mlx_t *mlx, t_map *map);
 void	player_key_hook(mlx_key_data_t keydata, void* param);
 
 t_map	*parse_map(char	*map_file);
