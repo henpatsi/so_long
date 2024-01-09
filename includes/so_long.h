@@ -6,7 +6,7 @@
 /*   By: hpatsi <hpatsi@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 13:12:50 by hpatsi            #+#    #+#             */
-/*   Updated: 2024/01/09 10:54:07 by hpatsi           ###   ########.fr       */
+/*   Updated: 2024/01/09 13:06:10 by hpatsi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ typedef struct s_images
 }	t_images;
 
 int		start_game(t_map *map);
-int		initialize_graphics(mlx_t *mlx, t_map *map);
+int		initialize_graphics(mlx_t *mlx, t_map *map, t_images *images);
 void	player_key_hook(mlx_key_data_t keydata, void* param);
 
 t_map	*parse_map(char	*map_file);

@@ -6,7 +6,7 @@
 /*   By: hpatsi <hpatsi@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 08:33:35 by hpatsi            #+#    #+#             */
-/*   Updated: 2024/01/09 11:47:15 by hpatsi           ###   ########.fr       */
+/*   Updated: 2024/01/09 13:03:22 by hpatsi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,15 +111,14 @@ int	initialize_images(t_images *images, t_textures *textures, mlx_t *mlx)
 	return (1);
 }
 
-int	initialize_graphics(mlx_t *mlx, t_map *map)
+int	initialize_graphics(mlx_t *mlx, t_map *map, t_images *images)
 {
 	t_textures	textures;
-	t_images	images;
 
 	if (!initialize_textures(&textures))
 		return (0);
-	if (!initialize_images(&images, &textures, mlx))
+	if (!initialize_images(images, &textures, mlx))
 		return (0);
-	place_tiles(mlx, map, &images);
+	place_tiles(mlx, map, images);
 	return (1);
 }
