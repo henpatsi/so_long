@@ -6,7 +6,7 @@
 /*   By: hpatsi <hpatsi@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/05 11:42:27 by hpatsi            #+#    #+#             */
-/*   Updated: 2024/01/09 13:12:45 by hpatsi           ###   ########.fr       */
+/*   Updated: 2024/01/09 13:19:18 by hpatsi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,11 @@ int	start_game(t_map *map)
 	mlx_get_monitor_size(0, &monitor_size[0], &monitor_size[1]);
 	mlx_set_window_limit(mlx, -1, -1, monitor_size[0], monitor_size[1]);
 
-	mlx_resize_image(images.floor_img, mlx->width / map->size[0], mlx->width / map->size[0]);
+	mlx_resize_image(images.player_img, 50, 50);
+	mlx_resize_image(images.floor_img, 50, 50);
+	mlx_resize_image(images.wall_img, 50, 50);
+	mlx_resize_image(images.exit_img, 50, 50);
+	mlx_resize_image(images.collectable_img, 50, 50);
 
 	// mlx_resize_hook(mlx, &resize_hook, images);
 

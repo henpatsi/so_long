@@ -6,7 +6,7 @@
 /*   By: hpatsi <hpatsi@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 16:26:20 by hpatsi            #+#    #+#             */
-/*   Updated: 2024/01/08 14:12:35 by hpatsi           ###   ########.fr       */
+/*   Updated: 2024/01/09 13:26:08 by hpatsi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 t_map	*initialize_map(t_gridpos **grid, int size[], int p_pos[], int collectibles)
 {
 	t_map		*map;
-	t_object	*player;
 
 	map = malloc(sizeof(t_map));
 	if (map == 0)
@@ -26,13 +25,6 @@ t_map	*initialize_map(t_gridpos **grid, int size[], int p_pos[], int collectible
 	map->collectibles = collectibles;
 	map->player_pos[0] = p_pos[0];
 	map->player_pos[1] = p_pos[1];
-	player = malloc(sizeof(t_object));
-	if (player == 0)
-	{
-		free_map(map);
-		return (0);
-	}
-	map->player = player;
 	return (map);
 }
 
