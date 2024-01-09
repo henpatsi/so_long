@@ -6,7 +6,7 @@
 /*   By: hpatsi <hpatsi@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 08:33:35 by hpatsi            #+#    #+#             */
-/*   Updated: 2024/01/09 14:38:00 by hpatsi           ###   ########.fr       */
+/*   Updated: 2024/01/09 16:20:28 by hpatsi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,6 @@
 void place_tiles(mlx_t *mlx, t_map *map, t_images *images)
 {
 	int y = 0;
-	int floor_count = 0;
-	int	wall_count = 0;
-	int	collectable_count = 0;
 	while (y < map->size[1])
 	{
 		int x = 0;
@@ -25,36 +22,33 @@ void place_tiles(mlx_t *mlx, t_map *map, t_images *images)
 		{
 			if (map->grid[y][x].label != '1')
 			{
-				mlx_image_to_window(mlx, images->floor_img, x * map->tile_size, y * map->tile_size);
-				map->grid[y][x].tile = &images->floor_img->instances[floor_count];
-				mlx_set_instance_depth(map->grid[y][x].tile, -20);
-				floor_count++;
+				map->grid[y][x].tile_inst = mlx_image_to_window(mlx, images->floor_img, x * map->tile_size, y * map->tile_size);
+				map->grid[y][x].tile_img = images->floor_img;
+				mlx_set_instance_depth(get_tile(map, x, y), -20);
 			}
 			else
 			{
-				mlx_image_to_window(mlx, images->wall_img, x * map->tile_size, y * map->tile_size);
-				map->grid[y][x].tile = &images->wall_img->instances[wall_count];
-				mlx_set_instance_depth(map->grid[y][x].tile, -20);
-				wall_count++;
+				map->grid[y][x].tile_inst = mlx_image_to_window(mlx, images->wall_img, x * map->tile_size, y * map->tile_size);
+				map->grid[y][x].tile_img = images->wall_img;
+				mlx_set_instance_depth(get_tile(map, x, y), -20);
 			}
 			if (map->grid[y][x].label == 'P')
 			{
-				mlx_image_to_window(mlx, images->player_img, x * map->tile_size, y * map->tile_size);
-				map->player.instance = &images->player_img->instances[0];
-				mlx_set_instance_depth(map->player.instance, 0);
+				map->player.inst = mlx_image_to_window(mlx, images->player_img, x * map->tile_size, y * map->tile_size);
+				map->player.img = images->player_img;
+				mlx_set_instance_depth(&map->player.img->instances[map->player.inst], 0);
 			}
 			if (map->grid[y][x].label == 'E')
 			{
-				mlx_image_to_window(mlx, images->exit_img, x * map->tile_size, y * map->tile_size);
-				map->grid[y][x].object = &images->exit_img->instances[0];
-				mlx_set_instance_depth(map->grid[y][x].object, -10);
+				map->grid[y][x].obj_inst = mlx_image_to_window(mlx, images->exit_img, x * map->tile_size, y * map->tile_size);
+				map->grid[y][x].obj_img = images->exit_img;
+				mlx_set_instance_depth(get_object(map, x, y), -10);
 			}
 			if (map->grid[y][x].label == 'C')
 			{
-				mlx_image_to_window(mlx, images->collectable_img, x * map->tile_size, y * map->tile_size);
-				map->grid[y][x].object = &images->collectable_img->instances[collectable_count];
-				mlx_set_instance_depth(map->grid[y][x].object, -10);
-				collectable_count++;
+				map->grid[y][x].obj_inst = mlx_image_to_window(mlx, images->collectable_img, x * map->tile_size, y * map->tile_size);
+				map->grid[y][x].obj_img = images->collectable_img;
+				mlx_set_instance_depth(get_object(map, x, y), -10);
 			}
 			x++;
 		}

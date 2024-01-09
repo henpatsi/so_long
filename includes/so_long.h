@@ -6,7 +6,7 @@
 /*   By: hpatsi <hpatsi@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 13:12:50 by hpatsi            #+#    #+#             */
-/*   Updated: 2024/01/09 14:15:43 by hpatsi           ###   ########.fr       */
+/*   Updated: 2024/01/09 16:33:40 by hpatsi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,14 +43,18 @@ typedef struct s_player
 {
 	int	x;
 	int	y;
-	mlx_instance_t	*instance;
+	mlx_image_t	*img;
+	int 		inst;
 }	t_player;
 
 typedef struct s_gridpos
 {
-	char			label;
-	mlx_instance_t	*tile;
-	mlx_instance_t	*object;
+	char		label;
+	mlx_image_t	*tile_img;
+	mlx_image_t	*obj_img;
+	int			tile_inst;
+	int			obj_inst;
+
 }	t_gridpos;
 
 typedef struct s_map
@@ -89,8 +93,10 @@ int		check_extension(char	*map_file);
 int		check_symbols(int map_fd, int size[]);
 int		check_grid(t_gridpos **grid, int size[], int player[], int *collectibles);
 
-int		ft_strsfree(char **strs);
-int		free_map(t_map *map);
-int		try_open_file(char	*file);
+mlx_instance_t	*get_tile(t_map *map, int x, int y);
+mlx_instance_t	*get_object(t_map *map, int x, int y);
+mlx_instance_t	*get_player(t_map *map);
+int				free_map(t_map *map);
+int				try_open_file(char	*file);
 
 #endif
