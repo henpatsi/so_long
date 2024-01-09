@@ -6,7 +6,7 @@
 /*   By: hpatsi <hpatsi@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 08:33:35 by hpatsi            #+#    #+#             */
-/*   Updated: 2024/01/09 14:07:07 by hpatsi           ###   ########.fr       */
+/*   Updated: 2024/01/09 14:38:00 by hpatsi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void place_tiles(mlx_t *mlx, t_map *map, t_images *images)
 			else
 			{
 				mlx_image_to_window(mlx, images->wall_img, x * map->tile_size, y * map->tile_size);
-				map->grid[y][x].tile = &images->floor_img->instances[floor_count];
+				map->grid[y][x].tile = &images->wall_img->instances[wall_count];
 				mlx_set_instance_depth(map->grid[y][x].tile, -20);
 				wall_count++;
 			}
