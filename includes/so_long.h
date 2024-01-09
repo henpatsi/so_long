@@ -6,7 +6,7 @@
 /*   By: hpatsi <hpatsi@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 13:12:50 by hpatsi            #+#    #+#             */
-/*   Updated: 2024/01/09 16:33:40 by hpatsi           ###   ########.fr       */
+/*   Updated: 2024/01/09 18:31:20 by hpatsi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 # include "MLX42.h"
 
 # ifndef TILE_SIZE
-#  define TILE_SIZE 160
+#  define TILE_SIZE 50
 # endif
 
 # ifndef FLOOR_TEXTURE
@@ -38,6 +38,24 @@
 # ifndef COLLECTABLE_TEXTURE
 #  define COLLECTABLE_TEXTURE "./textures/collectable.png"
 # endif
+
+typedef struct s_textures
+{
+	mlx_texture_t	*player_tex;
+	mlx_texture_t	*floor_tex;
+	mlx_texture_t	*wall_tex;
+	mlx_texture_t	*exit_tex;
+	mlx_texture_t	*collectable_tex;
+}	t_textures;
+
+typedef struct s_images
+{
+	mlx_image_t	*player_img;
+	mlx_image_t	*floor_img;
+	mlx_image_t	*wall_img;
+	mlx_image_t	*exit_img;
+	mlx_image_t	*collectable_img;
+}	t_images;
 
 typedef struct s_player
 {
@@ -64,25 +82,8 @@ typedef struct s_map
 	int			collectibles;
 	int			tile_size;
 	t_player	player;
+	t_images	images;
 }	t_map;
-
-typedef struct s_textures
-{
-	mlx_texture_t	*player_tex;
-	mlx_texture_t	*floor_tex;
-	mlx_texture_t	*wall_tex;
-	mlx_texture_t	*exit_tex;
-	mlx_texture_t	*collectable_tex;
-}	t_textures;
-
-typedef struct s_images
-{
-	mlx_image_t	*player_img;
-	mlx_image_t	*floor_img;
-	mlx_image_t	*wall_img;
-	mlx_image_t	*exit_img;
-	mlx_image_t	*collectable_img;
-}	t_images;
 
 int		start_game(t_map *map);
 int		initialize_graphics(mlx_t *mlx, t_map *map, t_images *images);

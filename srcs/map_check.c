@@ -6,7 +6,7 @@
 /*   By: hpatsi <hpatsi@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 14:06:13 by hpatsi            #+#    #+#             */
-/*   Updated: 2024/01/08 14:12:43 by hpatsi           ###   ########.fr       */
+/*   Updated: 2024/01/09 17:10:39 by hpatsi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,11 +30,20 @@ int	check_line(char	*line, int width, int pce[])
 	while (line[i] != '\n' && line[i] != '\0')
 	{
 		if ((i == 0 || i == width - 1) && line[i] != '1')
+		{
+			ft_printf("not closed on side\n");
 			return (0);
+		}
 		if (!ft_strchr("01PCE", line[i]))
+		{
+			ft_printf("invalid symbol\n");
 			return (0);
+		}
 		if ((line[i] == 'P' && pce[0] != 0) || (line[i] == 'E' && pce[2] != 0))
+		{
+			ft_printf("more than one player / exit\n");
 			return (0);
+		}
 		if (line[i] == 'P')
 			pce[0] = 1;
 		if (line[i] == 'E')
@@ -44,7 +53,10 @@ int	check_line(char	*line, int width, int pce[])
 		i++;
 	}
 	if (i != width)
+	{
+		ft_printf("map not rectangular\n");
 		return (0);
+	}
 	return (1);
 }
 
@@ -65,6 +77,7 @@ int	check_symbols(int map_fd, int size[])
 	{
 		if (!check_line(line, size[0], pce))
 		{
+			ft_printf("line = %s\n", line);
 			free(line);
 			return (0);
 		}
@@ -117,14 +130,20 @@ int	check_grid(t_gridpos **grid, int size[], int player_pos[], int *collectibles
 			if (i == 0 || i == size[1] - 1)
 			{
 				if (grid[i][j].label != '1')
+				{
+					ft_printf("no closed top/bottom\n");
 					return (0);
+				}
 			}
 			if (grid[i][j].label == 'P')
 			{
 				player_pos[0] = i;
 				player_pos[1] = j;
 				if (!find_path(grid, i, j))
+				{
+					ft_printf("no path found\n");
 					return (0);
+				}
 			}
 			if (grid[i][j].label == 'C')
 				*collectibles += 1;
