@@ -6,18 +6,11 @@
 /*   By: hpatsi <hpatsi@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/05 11:42:27 by hpatsi            #+#    #+#             */
-/*   Updated: 2024/01/10 10:51:51 by hpatsi           ###   ########.fr       */
+/*   Updated: 2024/01/10 11:55:32 by hpatsi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
-
-int	error(t_map *map)
-{
-	ft_putstr_fd((char *)mlx_strerror(mlx_errno), 2);
-	free_map(map);
-	exit (1);
-}
 
 void	window_input_hook(void *param)
 {
@@ -34,9 +27,9 @@ int	start_game(t_map *map)
 	mlx = mlx_init(map->size[0] * map->tile_size,
 			map->size[1] * map->tile_size, "so_long", false);
 	if (!mlx)
-		return (error(map));
+		return (game_error(map));
 	if (!initialize_graphics(mlx, map, &images))
-		return (error(map));
+		return (game_error(map));
 	map->images = images;
 	mlx_get_monitor_size(0, &monitor_size[0], &monitor_size[1]);
 	mlx_set_window_limit(mlx, -1, -1, monitor_size[0], monitor_size[1]);

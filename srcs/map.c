@@ -6,11 +6,23 @@
 /*   By: hpatsi <hpatsi@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 16:26:20 by hpatsi            #+#    #+#             */
-/*   Updated: 2024/01/10 10:40:20 by hpatsi           ###   ########.fr       */
+/*   Updated: 2024/01/10 12:29:34 by hpatsi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
+
+int	check_extension(char	*map_file)
+{
+	char	*extn;
+
+	extn = ft_strrchr(map_file, '.');
+	if (extn == 0)
+		return (0);
+	if (ft_strcmp(extn, ".ber") != 0)
+		return (map_error("map does not end with a .ber extention"));
+	return (1);
+}
 
 t_map	*initialize_map(t_gridpos **grid, int size[], int p_pos[], int coll)
 {
@@ -92,10 +104,7 @@ t_map	*parse_map(char	*map_file)
 
 	map_fd = try_open_file(map_file);
 	if (map_fd == -1)
-	{
-		ft_printf("could not open file\n");
 		return (0);
-	}
 	if (!check_extension(map_file) || !check_symbols(map_fd, size))
 	{
 		close(map_fd);

@@ -6,7 +6,7 @@
 /*   By: hpatsi <hpatsi@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 13:12:38 by hpatsi            #+#    #+#             */
-/*   Updated: 2024/01/10 10:47:52 by hpatsi           ###   ########.fr       */
+/*   Updated: 2024/01/10 12:36:54 by hpatsi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,10 +44,7 @@ int	main(int argc, char **argv)
 	}
 	map = parse_map(argv[1]);
 	if (map == 0)
-	{
-		ft_putstr_fd("Error\n", 2); // TODO explicit errors
 		return (1);
-	}
 	//print_map(map);
 	start_game(map);
 	free_map(map);

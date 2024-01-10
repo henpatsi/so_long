@@ -6,21 +6,11 @@
 /*   By: hpatsi <hpatsi@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 14:06:13 by hpatsi            #+#    #+#             */
-/*   Updated: 2024/01/10 10:22:49 by hpatsi           ###   ########.fr       */
+/*   Updated: 2024/01/10 12:27:25 by hpatsi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
-
-int	check_extension(char	*map_file)
-{
-	char	*extn;
-
-	extn = ft_strrchr(map_file, '.');
-	if (extn == 0)
-		return (0);
-	return (ft_strcmp(extn, ".ber") == 0);
-}
 
 int	check_line(char	*line, int width, int pce[])
 {
@@ -30,20 +20,13 @@ int	check_line(char	*line, int width, int pce[])
 	while (line[i] != '\n' && line[i] != '\0')
 	{
 		if ((i == 0 || i == width - 1) && line[i] != '1')
-		{
-			ft_printf("not closed on side\n");
-			return (0);
-		}
+			return (map_error("map is not surrounded by walls"));
 		if (!ft_strchr("01PCE", line[i]))
-		{
-			ft_printf("invalid symbol\n");
-			return (0);
-		}
-		if ((line[i] == 'P' && pce[0] != 0) || (line[i] == 'E' && pce[2] != 0))
-		{
-			ft_printf("more than one player / exit\n");
-			return (0);
-		}
+			return (map_error("map contains an invalid character"));
+		if (line[i] == 'P' && pce[0] != 0)
+			return (map_error("map contains more than one starting position"));
+		if (line[i] == 'E' && pce[2] != 0)
+			return (map_error("map contains more than one exit"));
 		if (line[i] == 'P')
 			pce[0] = 1;
 		if (line[i] == 'E')
@@ -53,10 +36,7 @@ int	check_line(char	*line, int width, int pce[])
 		i++;
 	}
 	if (i != width)
-	{
-		ft_printf("map not rectangular\n");
-		return (0);
-	}
+		return (map_error("map is not rectangular"));
 	return (1);
 }
 
@@ -77,7 +57,6 @@ int	check_symbols(int map_fd, int size[])
 	{
 		if (!check_line(line, size[0], pce))
 		{
-			ft_printf("line = %s\n", line);
 			free(line);
 			return (0);
 		}
@@ -86,7 +65,7 @@ int	check_symbols(int map_fd, int size[])
 		line = get_next_line(map_fd);
 	}
 	if (pce[0] == 0 || pce [1] == 0 || pce[2] == 0)
-		return (0);
+		return (map_error("map is missing a required character"));
 	return (1);
 }
 
@@ -130,20 +109,14 @@ int	check_grid(t_gridpos **grid, int size[], int player_pos[], int *coll)
 			if (i == 0 || i == size[1] - 1)
 			{
 				if (grid[i][j].label != '1')
-				{
-					ft_printf("no closed top/bottom\n");
-					return (0);
-				}
+					return (map_error("map is not surrounded by walls"));
 			}
 			if (grid[i][j].label == 'P')
 			{
 				player_pos[0] = i;
 				player_pos[1] = j;
 				if (!find_path(grid, i, j))
-				{
-					ft_printf("no path found\n");
-					return (0);
-				}
+					return (map_error("no valid path to exit"));
 			}
 			if (grid[i][j].label == 'C')
 				*coll += 1;

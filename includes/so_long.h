@@ -6,7 +6,7 @@
 /*   By: hpatsi <hpatsi@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 13:12:50 by hpatsi            #+#    #+#             */
-/*   Updated: 2024/01/10 10:51:35 by hpatsi           ###   ########.fr       */
+/*   Updated: 2024/01/10 12:28:01 by hpatsi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@
 # ifndef TILE_SIZE
 #  define TILE_SIZE 50
 # endif
-
 # ifndef FLOOR_TEXTURE
 #  define FLOOR_TEXTURE "./textures/floor.png"
 # endif
@@ -87,23 +86,25 @@ typedef struct s_map
 	t_images	images;
 }	t_map;
 
-int		start_game(t_map *map);
-int		initialize_graphics(mlx_t *mlx, t_map *map, t_images *images);
-void	place_images(mlx_t *mlx, t_map *map, t_images *images);
-void	resize(int width, int height, void *param);
-void	resize_images(t_map *map, t_images images, int new_size);
-void	player_key_hook(mlx_key_data_t keydata, void* param);
+t_map			*parse_map(char	*map_file);
+int				check_symbols(int map_fd, int size[]);
+int				check_grid(t_gridpos **grid, int size[], int player[], int *collectibles);
 
-t_map	*parse_map(char	*map_file);
-int		check_extension(char	*map_file);
-int		check_symbols(int map_fd, int size[]);
-int		check_grid(t_gridpos **grid, int size[], int player[], int *collectibles);
+int				start_game(t_map *map);
+int				initialize_graphics(mlx_t *mlx, t_map *map, t_images *images);
+void			place_images(mlx_t *mlx, t_map *map, t_images *images);
+void			resize(int width, int height, void *param);
+void			resize_images(t_map *map, t_images images, int new_size);
+void			player_key_hook(mlx_key_data_t keydata, void* param);
 
 mlx_instance_t	*get_tile(t_map *map, int x, int y);
 mlx_instance_t	*get_object(t_map *map, int x, int y);
 mlx_instance_t	*get_player(t_map *map);
 int				free_map(t_map *map);
-int	free_grid(t_gridpos **grid);
+int				free_grid(t_gridpos **grid);
 int				try_open_file(char	*file);
+
+int				game_error(t_map *map);
+int				map_error(char *error_message);
 
 #endif
