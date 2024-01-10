@@ -12,7 +12,7 @@
 
 #include "so_long.h"
 
-int	find_path(t_gridpos **grid, int i, int j)
+int	find_path(t_gridpos **grid, int i, int j, char c)
 {
 	char	symbol;
 
@@ -27,12 +27,12 @@ int	find_path(t_gridpos **grid, int i, int j)
 		grid[i][j].label = 'X';
 	if (symbol == 'C')
 		grid[i][j].label = 'Y';
-	if (find_path(grid, i + 1, j) == 1 || find_path(grid, i - 1, j) == 1)
+	if (find_path(grid, i + 1, j, c) == 1 || find_path(grid, i - 1, j, c) == 1)
 	{
 		grid[i][j].label = symbol;
 		return (1);
 	}
-	if (find_path(grid, i, j + 1) == 1 || find_path(grid, i, j - 1) == 1)
+	if (find_path(grid, i, j + 1, c) == 1 || find_path(grid, i, j - 1, c) == 1)
 	{
 		grid[i][j].label = symbol;
 		return (1);
@@ -77,12 +77,13 @@ int	check_grid(t_gridpos **grid, int size[], int player_pos[], int *coll)
 				if (grid[i][j].label != '1')
 					return (map_error("map is not surrounded by walls"));
 			}
-			if (grid[i][j].label == 'P')
+			if (grid[i][j].label == 'P' || grid[i][j].label == 'C')
 			{
 				player_pos[0] = i;
 				player_pos[1] = j;
-				if (!find_path(grid, i, j))
+				if (!find_path(grid, i, j, grid[i][j].label))
 					return (map_error("no valid path to exit"));
+				clean_grid(grid, size);
 			}
 			if (grid[i][j].label == 'C')
 				*coll += 1;
@@ -90,6 +91,5 @@ int	check_grid(t_gridpos **grid, int size[], int player_pos[], int *coll)
 		}
 		i++;
 	}
-	clean_grid(grid, size);
 	return (1);
 }
