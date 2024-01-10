@@ -6,7 +6,7 @@
 /*   By: hpatsi <hpatsi@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 14:06:13 by hpatsi            #+#    #+#             */
-/*   Updated: 2024/01/09 17:10:39 by hpatsi           ###   ########.fr       */
+/*   Updated: 2024/01/10 10:22:49 by hpatsi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,7 +116,7 @@ int	find_path(t_gridpos **grid, int i, int j)
 	return (0);
 }
 
-int	check_grid(t_gridpos **grid, int size[], int player_pos[], int *collectibles)
+int	check_grid(t_gridpos **grid, int size[], int player_pos[], int *coll)
 {
 	int	i;
 	int	j;
@@ -146,11 +146,10 @@ int	check_grid(t_gridpos **grid, int size[], int player_pos[], int *collectibles
 				}
 			}
 			if (grid[i][j].label == 'C')
-				*collectibles += 1;
+				*coll += 1;
 			j++;
 		}
 		i++;
 	}
-	
 	return (1);
 }

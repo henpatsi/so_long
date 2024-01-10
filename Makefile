@@ -6,7 +6,7 @@
 #    By: hpatsi <hpatsi@student.hive.fi>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/03 13:12:13 by hpatsi            #+#    #+#              #
-#    Updated: 2024/01/08 12:51:57 by hpatsi           ###   ########.fr        #
+#    Updated: 2024/01/10 11:25:34 by hpatsi           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,8 @@ MLX42_DIR = ./MLX42/build/
 MLX42 = $(MLX42_DIR)libmlx42.a
 
 SOURCES = $(addprefix ./srcs/, so_long.c game.c player_control.c \
-							   textures.c map.c map_check.c helpers.c)
+							   init_images.c place_images.c resize.c instances.c\
+							   map.c map_check.c helpers.c)
 
 OBJECTS = $(SOURCES:.c=.o)
 
@@ -27,7 +28,7 @@ HEADERS = -I ./includes -I ./MLX42/include/MLX42
 
 DEPENDENCIES = -lglfw -L"/Users/$(USER)/.brew/opt/glfw/lib/"
 
-CFLAGS += -Wall -Wextra -Werror $(HEADERS) -D DEBUG=1 -g
+CFLAGS += -Wall -Wextra -Werror $(HEADERS) -g
 
 all: $(NAME)
 
@@ -43,7 +44,7 @@ $(MLX42): $(MLX42_DIR)
 	make -C $(MLX42_DIR)
 
 $(MLX42_DIR):
-	cmake ./MLX42/ -B $(MLX42_DIR)
+	cmake ./MLX42/ -DDEBUG=1 -B $(MLX42_DIR)
 
 clean:
 	make clean -C ./libft/

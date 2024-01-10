@@ -6,7 +6,7 @@
 /*   By: hpatsi <hpatsi@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 13:12:50 by hpatsi            #+#    #+#             */
-/*   Updated: 2024/01/09 18:31:20 by hpatsi           ###   ########.fr       */
+/*   Updated: 2024/01/10 10:51:35 by hpatsi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,8 @@ typedef struct s_player
 
 typedef struct s_gridpos
 {
+	int	x;
+	int	y;
 	char		label;
 	mlx_image_t	*tile_img;
 	mlx_image_t	*obj_img;
@@ -87,6 +89,9 @@ typedef struct s_map
 
 int		start_game(t_map *map);
 int		initialize_graphics(mlx_t *mlx, t_map *map, t_images *images);
+void	place_images(mlx_t *mlx, t_map *map, t_images *images);
+void	resize(int width, int height, void *param);
+void	resize_images(t_map *map, t_images images, int new_size);
 void	player_key_hook(mlx_key_data_t keydata, void* param);
 
 t_map	*parse_map(char	*map_file);
@@ -98,6 +103,7 @@ mlx_instance_t	*get_tile(t_map *map, int x, int y);
 mlx_instance_t	*get_object(t_map *map, int x, int y);
 mlx_instance_t	*get_player(t_map *map);
 int				free_map(t_map *map);
+int	free_grid(t_gridpos **grid);
 int				try_open_file(char	*file);
 
 #endif
