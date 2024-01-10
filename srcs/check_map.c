@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   map_check.c                                        :+:      :+:    :+:   */
+/*   check_map.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hpatsi <hpatsi@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 14:06:13 by hpatsi            #+#    #+#             */
-/*   Updated: 2024/01/10 12:27:25 by hpatsi           ###   ########.fr       */
+/*   Updated: 2024/01/10 18:08:46 by hpatsi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,60 +69,24 @@ int	check_symbols(int map_fd, int size[])
 	return (1);
 }
 
-int	find_path(t_gridpos **grid, int i, int j)
+int	check_map(char	*map_file, int size[])
 {
-	char	symbol;
+	int		map_fd;
+	char	*extn;
 
-	if (grid[i] == 0 || grid[i][j].label == 0)
+	map_fd = try_open_file(map_file);
+	if (map_fd == -1)
 		return (0);
-	symbol = grid[i][j].label;
-	if (symbol == '1' || symbol == 'X')
+	extn = ft_strrchr(map_file, '.');
+	if (extn == 0)
 		return (0);
-	if (symbol == 'E')
-		return (1);
-	grid[i][j].label = 'X';
-	if (find_path(grid, i + 1, j) == 1 || find_path(grid, i - 1, j) == 1)
+	if (ft_strcmp(extn, ".ber") != 0)
+		return (map_error("map does not end with a .ber extention"));
+	if (!check_symbols(map_fd, size))
 	{
-		grid[i][j].label = symbol;
-		return (1);
+		close(map_fd);
+		return (0);
 	}
-	if (find_path(grid, i, j + 1) == 1 || find_path(grid, i, j - 1) == 1)
-	{
-		grid[i][j].label = symbol;
-		return (1);
-	}
-	grid[i][j].label = symbol;
-	return (0);
-}
-
-int	check_grid(t_gridpos **grid, int size[], int player_pos[], int *coll)
-{
-	int	i;
-	int	j;
-
-	i = 0;
-	while (i < size[1])
-	{
-		j = 0;
-		while (j < size[0])
-		{
-			if (i == 0 || i == size[1] - 1)
-			{
-				if (grid[i][j].label != '1')
-					return (map_error("map is not surrounded by walls"));
-			}
-			if (grid[i][j].label == 'P')
-			{
-				player_pos[0] = i;
-				player_pos[1] = j;
-				if (!find_path(grid, i, j))
-					return (map_error("no valid path to exit"));
-			}
-			if (grid[i][j].label == 'C')
-				*coll += 1;
-			j++;
-		}
-		i++;
-	}
+	close(map_fd);
 	return (1);
 }

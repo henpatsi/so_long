@@ -6,7 +6,7 @@
 /*   By: hpatsi <hpatsi@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 13:12:50 by hpatsi            #+#    #+#             */
-/*   Updated: 2024/01/10 12:28:01 by hpatsi           ###   ########.fr       */
+/*   Updated: 2024/01/10 18:07:57 by hpatsi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ typedef struct s_map
 }	t_map;
 
 t_map			*parse_map(char	*map_file);
-int				check_symbols(int map_fd, int size[]);
+int				check_map(char	*map_file, int size[]);
 int				check_grid(t_gridpos **grid, int size[], int player[], int *collectibles);
 
 int				start_game(t_map *map);
