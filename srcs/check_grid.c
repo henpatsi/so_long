@@ -61,7 +61,7 @@ void	clean_grid(t_gridpos **grid, int size[])
 	}
 }
 
-int	check_grid(t_gridpos **grid, int size[], int player_pos[], int *coll)
+int	check_grid(t_gridpos **grid, int size[], int player_pos[])
 {
 	int	i;
 	int	j;
@@ -85,8 +85,6 @@ int	check_grid(t_gridpos **grid, int size[], int player_pos[], int *coll)
 					return (map_error("no valid path to exit"));
 				clean_grid(grid, size);
 			}
-			if (grid[i][j].label == 'C')
-				*coll += 1;
 			j++;
 		}
 		i++;

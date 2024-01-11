@@ -88,7 +88,7 @@ typedef struct s_map
 
 t_map			*parse_map(char	*map_file);
 int				check_map(char	*map_file, int size[]);
-int				check_grid(t_gridpos **grid, int size[], int player[], int *collectibles);
+int				check_grid(t_gridpos **grid, int size[], int player[]);
 
 int				start_game(t_map *map);
 int				initialize_graphics(mlx_t *mlx, t_map *map, t_images *images);

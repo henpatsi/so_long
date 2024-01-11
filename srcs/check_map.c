@@ -66,13 +66,14 @@ int	check_symbols(int map_fd, int size[])
 	}
 	if (pce[0] == 0 || pce [1] == 0 || pce[2] == 0)
 		return (map_error("map is missing a required character"));
-	return (1);
+	return (pce[1]);
 }
 
 int	check_map(char	*map_file, int size[])
 {
 	int		map_fd;
 	char	*extn;
+	int		collectibles;
 
 	map_fd = try_open_file(map_file);
 	if (map_fd == -1)
@@ -82,11 +83,9 @@ int	check_map(char	*map_file, int size[])
 		return (0);
 	if (ft_strcmp(extn, ".ber") != 0)
 		return (map_error("map does not end with a .ber extention"));
-	if (!check_symbols(map_fd, size))
-	{
-		close(map_fd);
-		return (0);
-	}
+	collectibles = check_symbols(map_fd, size);
 	close(map_fd);
-	return (1);
+	if (!collectibles)
+		return (0);
+	return (collectibles);
 }
