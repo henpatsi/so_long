@@ -6,7 +6,7 @@
 /*   By: hpatsi <hpatsi@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 09:58:14 by hpatsi            #+#    #+#             */
-/*   Updated: 2024/01/10 10:07:55 by hpatsi           ###   ########.fr       */
+/*   Updated: 2024/01/10 12:53:26 by hpatsi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,7 @@ void	move_resized_images(t_map *map, int new_size)
 			move_image(tile, x, y, map->tile_size - new_size);
 			object = get_object(map, x, y);
 			if (object != 0)
-			{
 				move_image(object, x, y, map->tile_size - new_size);
-			}
 			x++;
 		}
 		y++;
