@@ -1,5 +1,7 @@
 #!/bin/bash
 
+make
+
 ALL_CHECK_ARG=a
 INVALID_CHECK_ARG=i
 VALID_CHECK_ARG=v
@@ -109,9 +111,10 @@ fi
 if [ $1 == "$ALL_CHECK_ARG" ] || [ $1 == "$LEAKS_CHECK_ARG" ]; then
 	printf ${HEADER_COLOR}"\n\n----- LEAKS -----\n\n"${NC}
 
+	EXPECTED_LINES=4
+
 	for file in $INVALID_MAP_DIR*; do
 		leaks --atExit -q -- $SO_LONG $file 1>$LEAKS_LOG 2>$TRASH_LOG
-		EXPECTED_LINES=4
 		LINES=$(sed -n '$=' ${LEAKS_LOG})
 		if [ ${LINES} -eq ${EXPECTED_LINES} ]
 		then
@@ -120,6 +123,15 @@ if [ $1 == "$ALL_CHECK_ARG" ] || [ $1 == "$LEAKS_CHECK_ARG" ]; then
 			echo -e ${RED}"$( basename $file ): [KO]"${NC}
 		fi
 	done
+
+	leaks --atExit -q -- $SO_LONG $VALID_MAP_DIR/m1.ber 1>$LEAKS_LOG 2>$TRASH_LOG
+	LINES=$(sed -n '$=' ${LEAKS_LOG})
+	if [ ${LINES} -eq ${EXPECTED_LINES} ]
+	then
+		echo -e ${GREEN}"$( basename $file ): [OK]"${NC}
+	else
+		echo -e ${RED}"$( basename $file ): [KO]"${NC}
+	fi
 fi
 
 printf ${HEADER_COLOR}"\n\n ----- \n\n"${NC}

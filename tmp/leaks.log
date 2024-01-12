@@ -1,0 +1,21 @@
+leaks Report Version: 4.0
+Process 5874: 19479 nodes malloced for 7135 KB
+Process 5874: 10 leaks for 516256 total leaked bytes.
+
+    10 (504K) << TOTAL >>
+
+      2 (104K) ROOT LEAK: 0x7fdb2cc06960 [32]
+         1 (104K) 0x10d3e0000 [106496]
+
+      2 (100K) ROOT LEAK: 0x7fdb2cc048e0 [32]
+         1 (100K) 0x10d491000 [102400]
+
+      2 (100K) ROOT LEAK: 0x7fdb2cc2fff0 [32]
+         1 (100K) 0x10d478000 [102400]
+
+      2 (100K) ROOT LEAK: 0x7fdb2cc365e0 [32]
+         1 (100K) 0x10d446000 [102400]
+
+      2 (100K) ROOT LEAK: 0x7fdb2cc36910 [32]
+         1 (100K) 0x10d45f000 [102400]
+

@@ -6,7 +6,7 @@
 /*   By: hpatsi <hpatsi@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/05 16:08:29 by hpatsi            #+#    #+#             */
-/*   Updated: 2024/01/12 09:40:36 by hpatsi           ###   ########.fr       */
+/*   Updated: 2024/01/12 11:25:27 by hpatsi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,19 +51,4 @@ void	move_player(t_map *map, int up, int right)
 	move_player_texture(map, up, right);
 	if (target_pos.label == 'E')
 		ft_printf("VICTORY!\n");
-}
-
-void	player_key_hook(mlx_key_data_t keydata, void *param)
-{
-	t_map	*map;
-
-	map = param;
-	if (keydata.key == MLX_KEY_W && keydata.action == MLX_PRESS)
-		move_player(map, 1, 0);
-	if (keydata.key == MLX_KEY_S && keydata.action == MLX_PRESS)
-		move_player(map, -1, 0);
-	if (keydata.key == MLX_KEY_A && keydata.action == MLX_PRESS)
-		move_player(map, 0, -1);
-	if (keydata.key == MLX_KEY_D && keydata.action == MLX_PRESS)
-		move_player(map, 0, 1);
 }
