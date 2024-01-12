@@ -6,7 +6,7 @@
 /*   By: hpatsi <hpatsi@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 14:06:13 by hpatsi            #+#    #+#             */
-/*   Updated: 2024/01/12 09:50:00 by hpatsi           ###   ########.fr       */
+/*   Updated: 2024/01/12 11:08:33 by hpatsi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,10 +79,11 @@ int	check_map(char	*map_file, int size[])
 	if (map_fd == -1)
 		return (0);
 	extn = ft_strrchr(map_file, '.');
-	if (extn == 0)
-		return (0);
-	if (ft_strcmp(extn, ".ber") != 0)
+	if (extn == 0 || ft_strcmp(extn, ".ber") != 0)
+	{
+		close(map_fd);
 		return (map_error("map does not end with a .ber extention"));
+	}
 	collectibles = check_symbols(map_fd, size);
 	close(map_fd);
 	if (!collectibles)

@@ -3,6 +3,7 @@
 ALL_CHECK_ARG=a
 INVALID_CHECK_ARG=i
 VALID_CHECK_ARG=v
+LEAKS_CHECK_ARG=l
 
 SO_LONG=./so_long
 
@@ -30,8 +31,9 @@ YELLOW='\033[0;33m'
 HEADER_COLOR=${LCYAN}
 SUBHEADER_COLOR=${CYAN}
 
-if [ $1 != "$VALID_CHECK_ARG" ]; then
-	printf ${HEADER_COLOR}"\n\n----- INVALID MAPS -----\n\n"${NC}
+# INVALID
+if [ $1 == "$ALL_CHECK_ARG" ] || [ $1 == "$INVALID_CHECK_ARG" ]; then
+	printf ${HEADER_COLOR}"\n\n----- INVALID -----\n\n"${NC}
 
 	for file in $INVALID_MAP_DIR*; do
 		$SO_LONG $file
@@ -53,10 +55,42 @@ if [ $1 != "$VALID_CHECK_ARG" ]; then
 	else
 		echo -e ${RED}"file_that_does_not_exist.ber: [KO]"${NC}
 	fi
+	echo ""
+
+	$SO_LONG
+	EXIT_CODE=$( echo $? )
+	if [ ${EXIT_CODE} -eq 1 ]
+	then
+		echo -e ${GREEN}"noargs: [OK]"${NC}
+	else
+		echo -e ${RED}"noargs.ber: [KO]"${NC}
+	fi
+	echo ""
+
+	$SO_LONG $VALID_MAP_DIR/m1.ber "123"
+	EXIT_CODE=$( echo $? )
+	if [ ${EXIT_CODE} -eq 1 ]
+	then
+		echo -e ${GREEN}"2 args: [OK]"${NC}
+	else
+		echo -e ${RED}"2 args.ber: [KO]"${NC}
+	fi
+	echo ""
+
+	$SO_LONG ""
+	EXIT_CODE=$( echo $? )
+	if [ ${EXIT_CODE} -eq 1 ]
+	then
+		echo -e ${GREEN}"emptyarg: [OK]"${NC}
+	else
+		echo -e ${RED}"emptyarg: [KO]"${NC}
+	fi
+	echo ""
 fi
 
-if [ $1 != "$INVALID_CHECK_ARG" ]; then
-	printf ${HEADER_COLOR}"\n\n----- VALID MAPS -----\n\n"${NC}
+# VALID
+if [ $1 == "$ALL_CHECK_ARG" ] || [ $1 == "$VALID_CHECK_ARG" ]; then
+	printf ${HEADER_COLOR}"\n\n----- VALID -----\n\n"${NC}
 
 	for file in $VALID_MAP_DIR*; do
 		echo $( basename $file )
@@ -67,6 +101,23 @@ if [ $1 != "$INVALID_CHECK_ARG" ]; then
 			echo -e ${GREEN}"Valid map: [OK]"${NC}
 		else
 			echo -e ${RED}"Valid map: [KO]"${NC}
+		fi
+	done
+fi
+
+# LEAKS
+if [ $1 == "$ALL_CHECK_ARG" ] || [ $1 == "$LEAKS_CHECK_ARG" ]; then
+	printf ${HEADER_COLOR}"\n\n----- LEAKS -----\n\n"${NC}
+
+	for file in $INVALID_MAP_DIR*; do
+		leaks --atExit -q -- $SO_LONG $file 1>$LEAKS_LOG 2>$TRASH_LOG
+		EXPECTED_LINES=4
+		LINES=$(sed -n '$=' ${LEAKS_LOG})
+		if [ ${LINES} -eq ${EXPECTED_LINES} ]
+		then
+			echo -e ${GREEN}"$( basename $file ): [OK]"${NC}
+		else
+			echo -e ${RED}"$( basename $file ): [KO]"${NC}
 		fi
 	done
 fi
