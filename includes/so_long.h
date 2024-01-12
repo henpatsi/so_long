@@ -6,7 +6,7 @@
 /*   By: hpatsi <hpatsi@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 13:12:50 by hpatsi            #+#    #+#             */
-/*   Updated: 2024/01/12 09:24:42 by hpatsi           ###   ########.fr       */
+/*   Updated: 2024/01/12 09:52:16 by hpatsi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,10 +100,11 @@ void			player_key_hook(mlx_key_data_t keydata, void* param);
 mlx_instance_t	*get_tile(t_map *map, int x, int y);
 mlx_instance_t	*get_object(t_map *map, int x, int y);
 mlx_instance_t	*get_player(t_map *map);
+
 int				free_map(t_map *map);
 int				free_grid(t_gridpos **grid);
-int				try_open_file(char	*file);
 
+int				try_open_file(char	*file);
 int				game_error(t_map *map);
 int				map_error(char *error_message);
 

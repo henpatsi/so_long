@@ -6,7 +6,7 @@
 #    By: hpatsi <hpatsi@student.hive.fi>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/03 13:12:13 by hpatsi            #+#    #+#              #
-#    Updated: 2024/01/10 18:02:56 by hpatsi           ###   ########.fr        #
+#    Updated: 2024/01/12 09:48:53 by hpatsi           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,7 @@ MLX42 = $(MLX42_DIR)libmlx42.a
 
 SOURCES = $(addprefix ./srcs/, so_long.c game.c player_control.c \
 							   init_images.c place_images.c resize.c instances.c\
-							   map.c check_map.c check_grid.c helpers.c error.c)
+							   map.c check_map.c check_grid.c free.c error.c)
 
 OBJECTS = $(SOURCES:.c=.o)
 
