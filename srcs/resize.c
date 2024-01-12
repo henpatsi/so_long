@@ -6,19 +6,25 @@
 /*   By: hpatsi <hpatsi@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 09:58:14 by hpatsi            #+#    #+#             */
-/*   Updated: 2024/01/12 14:12:50 by hpatsi           ###   ########.fr       */
+/*   Updated: 2024/01/12 16:44:26 by hpatsi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-void	resize_images(t_images images, int new_size)
+int	resize_images(t_images images, int new_size)
 {
-	mlx_resize_image(images.player_img, new_size, new_size);
-	mlx_resize_image(images.floor_img, new_size, new_size);
-	mlx_resize_image(images.wall_img, new_size, new_size);
-	mlx_resize_image(images.exit_img, new_size, new_size);
-	mlx_resize_image(images.collectable_img, new_size, new_size);
+	if (mlx_resize_image(images.player_img, new_size, new_size) == 0)
+		return (0);
+	if (mlx_resize_image(images.floor_img, new_size, new_size) == 0)
+		return (0);
+	if (mlx_resize_image(images.wall_img, new_size, new_size) == 0)
+		return (0);
+	if (mlx_resize_image(images.exit_img, new_size, new_size) == 0)
+		return (0);
+	if (mlx_resize_image(images.collectable_img, new_size, new_size) == 0)
+		return (0);
+	return (1);
 }
 
 void	resize_tiles(int width, int height, void *param)

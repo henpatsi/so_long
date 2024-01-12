@@ -6,7 +6,7 @@
 /*   By: hpatsi <hpatsi@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/05 11:42:27 by hpatsi            #+#    #+#             */
-/*   Updated: 2024/01/12 14:25:31 by hpatsi           ###   ########.fr       */
+/*   Updated: 2024/01/12 16:21:22 by hpatsi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,13 +39,14 @@ int	start_game(t_map *map)
 
 	mlx = mlx_init(map->size[0] * map->tile_size,
 			map->size[1] * map->tile_size, "so_long", false);
-	if (!mlx)
+	if (mlx == 0)
 		game_error(mlx, map);
 	limit_to_monitor_size(mlx, map);
-	if (!initialize_images(mlx, map))
+	if (initialize_images(mlx, map) == 0)
 		game_error(mlx, map);
 	mlx_key_hook(mlx, &player_key_hook, map);
-	mlx_loop_hook(mlx, &window_input_hook, mlx);
+	if (mlx_loop_hook(mlx, &window_input_hook, mlx) == 0)
+		game_error(mlx, map);
 	mlx_loop(mlx);
 	mlx_terminate(mlx);
 	return (0);
