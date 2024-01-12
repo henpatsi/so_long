@@ -6,7 +6,7 @@
 /*   By: hpatsi <hpatsi@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 11:47:13 by hpatsi            #+#    #+#             */
-/*   Updated: 2024/01/12 10:15:50 by hpatsi           ###   ########.fr       */
+/*   Updated: 2024/01/12 14:23:10 by hpatsi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,13 @@ int	try_open_file(char	*file)
 	return (file_fd);
 }
 
-int	game_error(t_map *map)
+int	game_error(mlx_t *mlx, t_map *map)
 {
 	ft_putstr_fd((char *)mlx_strerror(mlx_errno), 2);
+	ft_putstr_fd("\n", 2);
 	free_map(map);
+	if (mlx != 0)
+		mlx_terminate(mlx);
 	exit (1);
 }
 

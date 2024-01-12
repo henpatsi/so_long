@@ -6,7 +6,7 @@
 /*   By: hpatsi <hpatsi@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 13:12:50 by hpatsi            #+#    #+#             */
-/*   Updated: 2024/01/12 14:02:41 by hpatsi           ###   ########.fr       */
+/*   Updated: 2024/01/12 14:18:20 by hpatsi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,8 +94,7 @@ int				check_map(char	*map_file, int size[]);
 int				check_grid(t_gridpos **grid, int size[], t_player *player);
 
 int				start_game(t_map *map);
-int				initialize_graphics(mlx_t *mlx, t_map *map);
-void			place_images(mlx_t *mlx, t_map *map, t_images *images);
+int				initialize_images(mlx_t *mlx, t_map *map);
 void			resize_tiles(int width, int height, void *param);
 void			resize_images(t_images images, int new_size);
 void			limit_to_monitor_size(mlx_t *mlx, t_map *map);
@@ -109,7 +108,7 @@ int				free_map(t_map *map);
 int				free_grid(t_gridpos **grid);
 
 int				try_open_file(char	*file);
-int				game_error(t_map *map);
+int				game_error(mlx_t *mlx, t_map *map);
 int				map_error(char *error_message);
 
 #endif

@@ -128,9 +128,9 @@ if [ $1 == "$ALL_CHECK_ARG" ] || [ $1 == "$LEAKS_CHECK_ARG" ]; then
 	LINES=$(sed -n '$=' ${LEAKS_LOG})
 	if [ ${LINES} -eq ${EXPECTED_LINES} ]
 	then
-		echo -e ${GREEN}"$( basename $file ): [OK]"${NC}
+		echo -e ${GREEN}"valid map: [OK]"${NC}
 	else
-		echo -e ${RED}"$( basename $file ): [KO]"${NC}
+		echo -e ${RED}"valid map: [KO]"${NC}
 	fi
 fi
 
