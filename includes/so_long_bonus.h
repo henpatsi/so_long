@@ -6,7 +6,7 @@
 /*   By: hpatsi <hpatsi@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 13:12:50 by hpatsi            #+#    #+#             */
-/*   Updated: 2024/01/16 13:41:15 by hpatsi           ###   ########.fr       */
+/*   Updated: 2024/01/16 14:20:05 by hpatsi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,6 +100,7 @@ typedef struct s_map
 	t_player		player;
 	t_images		images;
 	t_playeranims	player_anims;
+	mlx_image_t		*moves_img;
 	mlx_t			*mlx;
 }	t_map;
 

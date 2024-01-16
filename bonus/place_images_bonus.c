@@ -6,7 +6,7 @@
 /*   By: hpatsi <hpatsi@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 09:37:16 by hpatsi            #+#    #+#             */
-/*   Updated: 2024/01/16 12:16:52 by hpatsi           ###   ########.fr       */
+/*   Updated: 2024/01/16 14:21:23 by hpatsi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,5 +88,8 @@ int	place_images(mlx_t *mlx, t_map *map, t_images *images)
 		}
 		y++;
 	}
+	map->moves_img = mlx_put_string(mlx, "0", 0, 0);
+	if (map->moves_img == 0)
+		return (0);
 	return(1);
 }

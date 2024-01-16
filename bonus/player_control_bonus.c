@@ -6,7 +6,7 @@
 /*   By: hpatsi <hpatsi@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/05 16:08:29 by hpatsi            #+#    #+#             */
-/*   Updated: 2024/01/16 10:42:40 by hpatsi           ###   ########.fr       */
+/*   Updated: 2024/01/16 14:28:58 by hpatsi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,18 @@ void	collect_collectable(t_map *map, int x, int y)
 	object->enabled = 0;
 }
 
+void	update_moves_img(t_map *map, int moves)
+{
+	char	*moves_str;
+
+	moves_str = ft_itoa(moves);
+	if (moves_str == 0)
+		return ;
+	mlx_delete_image(map->mlx, map->moves_img);
+	map->moves_img = mlx_put_string(map->mlx, moves_str, 0, 0);
+	free(moves_str);
+}
+
 void	move_player(t_map *map, int up, int right)
 {
 	static int	moves;
@@ -47,8 +59,8 @@ void	move_player(t_map *map, int up, int right)
 	player->x += right;
 	map->grid[player->y][player->x].label = 'P';
 	moves++;
-	ft_printf("Moves: %d\n", moves);
 	move_player_texture(map, up, right);
+	update_moves_img(map, moves);
 	if (target_pos.label == 'E')
 		ft_printf("VICTORY!\n");
 }

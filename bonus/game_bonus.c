@@ -6,7 +6,7 @@
 /*   By: hpatsi <hpatsi@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/05 11:42:27 by hpatsi            #+#    #+#             */
-/*   Updated: 2024/01/16 13:42:05 by hpatsi           ###   ########.fr       */
+/*   Updated: 2024/01/16 14:06:58 by hpatsi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void	anim_update_hook(void *param)
 	animate_player(map);
 }
 
-int	start_game(t_map *map)
+int	start_game(t_map *map) 
 {
 	mlx_t	*mlx;
 
