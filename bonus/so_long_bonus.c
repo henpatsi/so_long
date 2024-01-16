@@ -1,44 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error.c                                            :+:      :+:    :+:   */
+/*   so_long_bonus.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hpatsi <hpatsi@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/10 11:47:13 by hpatsi            #+#    #+#             */
-/*   Updated: 2024/01/16 09:49:09 by hpatsi           ###   ########.fr       */
+/*   Created: 2024/01/03 13:12:38 by hpatsi            #+#    #+#             */
+/*   Updated: 2024/01/16 10:21:56 by hpatsi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-int	try_open_file(char	*file)
+int	check_args(int argc)
 {
-	int	file_fd;
-
-	file_fd = open(file, O_RDONLY);
-	if (file_fd == -1)
+	if (argc != 2)
 	{
-		ft_putstr_fd("Error\n", 2);
-		perror(file);
+		if (argc < 2)
+			return (map_error("no map given as argument"));
+		if (argc > 2)
+			return (map_error("too many arguments"));
 	}
-	return (file_fd);
+	return (1);
 }
 
-int	map_error(char *error_message)
+int	main(int argc, char **argv)
 {
-	ft_putstr_fd("Error\n", 2);
-	ft_putstr_fd(error_message, 2);
-	ft_putstr_fd("\n", 2);
-	return (0);
-}
+	t_map	*map;
 
-int	game_error(mlx_t *mlx, t_map *map)
-{
-	ft_putstr_fd((char *)mlx_strerror(mlx_errno), 2);
-	ft_putstr_fd("\n", 2);
+	if (check_args(argc) == 0)
+		return (1);
+	map = parse_map(argv[1]);
+	if (map == 0)
+		return (1);
+	if (start_game(map) == 0)
+		return (1);
 	free_map(map);
-	if (mlx != 0)
-		mlx_terminate(mlx);
 	return (0);
 }

@@ -6,11 +6,13 @@
 #    By: hpatsi <hpatsi@student.hive.fi>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/03 13:12:13 by hpatsi            #+#    #+#              #
-#    Updated: 2024/01/16 09:40:47 by hpatsi           ###   ########.fr        #
+#    Updated: 2024/01/16 10:33:27 by hpatsi           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = so_long
+
+BONUS = .bonus
 
 LIBFT = ./libft/libft.a
 
@@ -18,11 +20,17 @@ MLX42_DIR = ./MLX42/build/
 
 MLX42 = $(MLX42_DIR)libmlx42.a
 
-SOURCES = $(addprefix ./srcs/, so_long.c game.c player_control.c \
-							   init_images.c place_images.c resize.c instances.c\
-							   map.c check_map.c check_grid.c free.c error.c)
+SOURCE_FILES = so_long game player_control \
+			   init_images place_images resize instances \
+			   map check_map check_grid free error
+
+SOURCES = $(addsuffix .c, $(addprefix ./srcs/, $(SOURCE_FILES)))
 
 OBJECTS = $(SOURCES:.c=.o)
+
+BONUS_SOURCES = $(addsuffix _bonus.c, $(addprefix ./bonus/, $(SOURCE_FILES)))
+
+BONUS_OBJECTS = $(BONUS_SOURCES:.c=.o)
 
 HEADERS = -I ./includes -I ./MLX42/include/MLX42
 
@@ -37,6 +45,14 @@ $(NAME): $(OBJECTS) $(LIBFT) $(MLX42)
 
 $(OBJECTS): $(SOURCES)
 
+bonus: $(BONUS)
+
+$(BONUS): $(BONUS_OBJECTS) $(LIBFT) $(MLX42)
+	cc $(CFLAGS) $(BONUS_OBJECTS) $(LIBFT) $(MLX42) $(DEPENDENCIES) -o $(NAME)
+	touch $(BONUS)
+
+$(BONUS_OBJECTS): $(BONUS_SOURCES)
+
 $(LIBFT):
 	make -C ./libft/
 
@@ -49,11 +65,13 @@ $(MLX42_DIR):
 clean:
 	make clean -C ./libft/
 	rm -f $(OBJECTS)
+	rm -f $(BONUS_OBJECTS)
 	make depend -C $(MLX42_DIR)
 
 fclean: clean
 	rm -f $(LIBFT)
 	rm -f $(NAME)
+	rm -f $(BONUS)
 	make clean -C $(MLX42_DIR)
 
 re: fclean all

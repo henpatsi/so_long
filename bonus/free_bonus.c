@@ -1,44 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error.c                                            :+:      :+:    :+:   */
+/*   free_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hpatsi <hpatsi@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/10 11:47:13 by hpatsi            #+#    #+#             */
-/*   Updated: 2024/01/16 09:49:09 by hpatsi           ###   ########.fr       */
+/*   Created: 2024/01/12 09:49:06 by hpatsi            #+#    #+#             */
+/*   Updated: 2024/01/16 10:21:29 by hpatsi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-int	try_open_file(char	*file)
+int	free_map(t_map *map)
 {
-	int	file_fd;
-
-	file_fd = open(file, O_RDONLY);
-	if (file_fd == -1)
-	{
-		ft_putstr_fd("Error\n", 2);
-		perror(file);
-	}
-	return (file_fd);
-}
-
-int	map_error(char *error_message)
-{
-	ft_putstr_fd("Error\n", 2);
-	ft_putstr_fd(error_message, 2);
-	ft_putstr_fd("\n", 2);
+	free_grid(map->grid);
+	free(map);
 	return (0);
 }
 
-int	game_error(mlx_t *mlx, t_map *map)
+int	free_grid(t_gridpos **grid)
 {
-	ft_putstr_fd((char *)mlx_strerror(mlx_errno), 2);
-	ft_putstr_fd("\n", 2);
-	free_map(map);
-	if (mlx != 0)
-		mlx_terminate(mlx);
+	int	i;
+
+	i = 0;
+	while (grid[i] != 0)
+	{
+		free(grid[i]);
+		i++;
+	}
+	free(grid);
 	return (0);
 }
