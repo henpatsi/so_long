@@ -6,7 +6,7 @@
 /*   By: hpatsi <hpatsi@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/05 11:42:27 by hpatsi            #+#    #+#             */
-/*   Updated: 2024/01/16 13:28:56 by hpatsi           ###   ########.fr       */
+/*   Updated: 2024/01/16 13:42:05 by hpatsi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,11 +35,14 @@ void	window_input_hook(void *param)
 
 void	anim_update_hook(void *param)
 {
-	static int	timer;
-	t_map		*map;
+	static double	timer;
+	t_map			*map;
+	mlx_t			*mlx;
 
-	timer++;
-	if (timer < ANIM_DELAY)
+	map = param;
+	mlx = map->mlx;
+	timer += mlx->delta_time;
+	if (timer < (double) ANIM_DELAY)
 		return ;
 	timer = 0;
 	map = param;
@@ -54,6 +57,7 @@ int	start_game(t_map *map)
 			map->size[1] * map->tile_size, "so_long", false);
 	if (mlx == 0)
 		return (game_error(mlx, map));
+	map->mlx = mlx;
 	limit_to_monitor_size(mlx, map);
 	if (initialize_images(mlx, map) == 0)
 		return (game_error(mlx, map));

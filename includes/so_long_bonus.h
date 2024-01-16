@@ -6,7 +6,7 @@
 /*   By: hpatsi <hpatsi@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 13:12:50 by hpatsi            #+#    #+#             */
-/*   Updated: 2024/01/16 13:30:03 by hpatsi           ###   ########.fr       */
+/*   Updated: 2024/01/16 13:41:15 by hpatsi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@
 # endif
 
 # ifndef ANIM_DELAY
-#  define ANIM_DELAY 150
+#  define ANIM_DELAY 0.2
 # endif
 # ifndef PLAYER_ANIM_FILES
 #  define PLAYER_ANIM_FILES "./textures/animated_player/0.png:./textures/animated_player/1.png:./textures/animated_player/2.png:./textures/animated_player/3.png"
@@ -100,6 +100,7 @@ typedef struct s_map
 	t_player		player;
 	t_images		images;
 	t_playeranims	player_anims;
+	mlx_t			*mlx;
 }	t_map;
 
 t_map			*parse_map(char	*map_file);
