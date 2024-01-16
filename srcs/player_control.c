@@ -6,7 +6,7 @@
 /*   By: hpatsi <hpatsi@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/05 16:08:29 by hpatsi            #+#    #+#             */
-/*   Updated: 2024/01/12 16:33:30 by hpatsi           ###   ########.fr       */
+/*   Updated: 2024/01/16 15:36:17 by hpatsi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ void	collect_collectable(t_map *map, int x, int y)
 void	move_player(t_map *map, int up, int right)
 {
 	static int	moves;
+	static int	won;
 	t_gridpos	target_pos;
 	t_player	*player;
 
@@ -47,8 +48,12 @@ void	move_player(t_map *map, int up, int right)
 	player->x += right;
 	map->grid[player->y][player->x].label = 'P';
 	moves++;
-	ft_printf("Moves: %d\n", moves);
+	if (won == 0)
+		ft_printf("Moves: %d\n", moves);
 	move_player_texture(map, up, right);
 	if (target_pos.label == 'E')
+	{
 		ft_printf("VICTORY!\n");
+		won = 1;
+	}
 }
