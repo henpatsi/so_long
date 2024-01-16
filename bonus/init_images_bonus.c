@@ -6,7 +6,7 @@
 /*   By: hpatsi <hpatsi@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 08:33:35 by hpatsi            #+#    #+#             */
-/*   Updated: 2024/01/16 14:15:36 by hpatsi           ###   ########.fr       */
+/*   Updated: 2024/01/16 14:56:29 by hpatsi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,19 +27,24 @@ mlx_image_t	*initialize_image(mlx_t *mlx, char *file)
 
 int	initialize_player_animations(mlx_t *mlx, t_map *map)
 {
-	char **files;
+	char	**files;
+	int		i;
 
 	files = ft_split(PLAYER_ANIM_FILES, ':');
 	if (files == 0)
 		return (0);
-	map->player_anims.player_anim0 = initialize_image(mlx, files[0]);
-	map->player_anims.player_anim1 = initialize_image(mlx, files[1]);
-	map->player_anims.player_anim2 = initialize_image(mlx, files[2]);
-	map->player_anims.player_anim3 = initialize_image(mlx, files[3]);
+	i = 0;
+	while (i < 4)
+	{
+		map->player_anims[i] = initialize_image(mlx, files[i]);
+		if (map->player_anims[i] == 0)
+		{
+			ft_strsfree(files);
+			return (0);
+		}
+		i++;
+	}
 	ft_strsfree(files);
-	if (!map->player_anims.player_anim0 || !map->player_anims.player_anim1
-		|| !map->player_anims.player_anim2 || !map->player_anims.player_anim3)
-		return (0);
 	return (1);
 }
 

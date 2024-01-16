@@ -6,7 +6,7 @@
 /*   By: hpatsi <hpatsi@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 09:58:14 by hpatsi            #+#    #+#             */
-/*   Updated: 2024/01/16 13:24:24 by hpatsi           ###   ########.fr       */
+/*   Updated: 2024/01/16 14:56:13 by hpatsi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,16 +27,17 @@ int	resize_images(t_images images, int new_size)
 	return (1);
 }
 
-int	resize_player_animations(t_playeranims images, int new_size)
+int	resize_player_animations(mlx_image_t *images[], int new_size)
 {
-	if (mlx_resize_image(images.player_anim0, new_size, new_size) == 0)
-		return (0);
-	if (mlx_resize_image(images.player_anim1, new_size, new_size) == 0)
-		return (0);
-	if (mlx_resize_image(images.player_anim2, new_size, new_size) == 0)
-		return (0);
-	if (mlx_resize_image(images.player_anim3, new_size, new_size) == 0)
-		return (0);
+	int	i;
+
+	i = 0;
+	while (i < 4)
+	{
+		if (mlx_resize_image(images[i], new_size, new_size) == 0)
+			return (0);
+		i++;
+	}
 	return (1);
 }
 

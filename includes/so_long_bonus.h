@@ -6,7 +6,7 @@
 /*   By: hpatsi <hpatsi@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 13:12:50 by hpatsi            #+#    #+#             */
-/*   Updated: 2024/01/16 14:20:05 by hpatsi           ###   ########.fr       */
+/*   Updated: 2024/01/16 14:56:53 by hpatsi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,14 +63,6 @@ typedef struct s_images
 	mlx_image_t	*collectable_img;
 }	t_images;
 
-typedef struct s_playeranims
-{
-	mlx_image_t	*player_anim0;
-	mlx_image_t	*player_anim1;
-	mlx_image_t	*player_anim2;
-	mlx_image_t	*player_anim3;
-}	t_playeranims;
-
 typedef struct s_player
 {
 	int	x;
@@ -99,7 +91,7 @@ typedef struct s_map
 	int				tile_size;
 	t_player		player;
 	t_images		images;
-	t_playeranims	player_anims;
+	mlx_image_t		*player_anims[4];
 	mlx_image_t		*moves_img;
 	mlx_t			*mlx;
 }	t_map;
@@ -116,7 +108,7 @@ int				place_images(mlx_t *mlx, t_map *map, t_images *images);
 
 void			resize_tiles(int width, int height, void *param);
 int				resize_images(t_images images, int new_size);
-int				resize_player_animations(t_playeranims images, int new_size);
+int				resize_player_animations(mlx_image_t *images[], int new_size);
 void			limit_to_monitor_size(mlx_t *mlx, t_map *map);
 
 mlx_instance_t	*get_tile(t_map *map, int x, int y);
