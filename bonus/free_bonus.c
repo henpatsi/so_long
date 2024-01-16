@@ -6,11 +6,11 @@
 /*   By: hpatsi <hpatsi@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/12 09:49:06 by hpatsi            #+#    #+#             */
-/*   Updated: 2024/01/16 10:21:29 by hpatsi           ###   ########.fr       */
+/*   Updated: 2024/01/16 12:16:32 by hpatsi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long.h"
+#include "so_long_bonus.h"
 
 int	free_map(t_map *map)
 {

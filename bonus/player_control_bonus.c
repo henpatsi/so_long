@@ -6,11 +6,11 @@
 /*   By: hpatsi <hpatsi@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/05 16:08:29 by hpatsi            #+#    #+#             */
-/*   Updated: 2024/01/16 10:21:50 by hpatsi           ###   ########.fr       */
+/*   Updated: 2024/01/16 10:42:40 by hpatsi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long.h"
+#include "so_long_bonus.h"
 
 void	move_player_texture(t_map *map, int up, int right)
 {

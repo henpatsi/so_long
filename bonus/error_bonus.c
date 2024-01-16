@@ -6,11 +6,11 @@
 /*   By: hpatsi <hpatsi@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 11:47:13 by hpatsi            #+#    #+#             */
-/*   Updated: 2024/01/16 10:21:20 by hpatsi           ###   ########.fr       */
+/*   Updated: 2024/01/16 12:19:34 by hpatsi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long.h"
+#include "so_long_bonus.h"
 
 int	try_open_file(char	*file)
 {

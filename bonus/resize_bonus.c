@@ -6,11 +6,11 @@
 /*   By: hpatsi <hpatsi@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 09:58:14 by hpatsi            #+#    #+#             */
-/*   Updated: 2024/01/16 10:21:53 by hpatsi           ###   ########.fr       */
+/*   Updated: 2024/01/16 13:24:24 by hpatsi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long.h"
+#include "so_long_bonus.h"
 
 int	resize_images(t_images images, int new_size)
 {
@@ -23,6 +23,19 @@ int	resize_images(t_images images, int new_size)
 	if (mlx_resize_image(images.exit_img, new_size, new_size) == 0)
 		return (0);
 	if (mlx_resize_image(images.collectable_img, new_size, new_size) == 0)
+		return (0);
+	return (1);
+}
+
+int	resize_player_animations(t_playeranims images, int new_size)
+{
+	if (mlx_resize_image(images.player_anim0, new_size, new_size) == 0)
+		return (0);
+	if (mlx_resize_image(images.player_anim1, new_size, new_size) == 0)
+		return (0);
+	if (mlx_resize_image(images.player_anim2, new_size, new_size) == 0)
+		return (0);
+	if (mlx_resize_image(images.player_anim3, new_size, new_size) == 0)
 		return (0);
 	return (1);
 }

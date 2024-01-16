@@ -1,7 +1,5 @@
 #!/bin/bash
 
-make
-
 ALL_CHECK_ARG=a
 INVALID_CHECK_ARG=i
 VALID_CHECK_ARG=v

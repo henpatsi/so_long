@@ -6,11 +6,11 @@
 /*   By: hpatsi <hpatsi@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/05 11:42:27 by hpatsi            #+#    #+#             */
-/*   Updated: 2024/01/16 10:21:34 by hpatsi           ###   ########.fr       */
+/*   Updated: 2024/01/16 13:28:56 by hpatsi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long.h"
+#include "so_long_bonus.h"
 
 void	player_key_hook(mlx_key_data_t keydata, void *param)
 {
@@ -33,6 +33,19 @@ void	window_input_hook(void *param)
 		mlx_close_window(param);
 }
 
+void	anim_update_hook(void *param)
+{
+	static int	timer;
+	t_map		*map;
+
+	timer++;
+	if (timer < ANIM_DELAY)
+		return ;
+	timer = 0;
+	map = param;
+	animate_player(map);
+}
+
 int	start_game(t_map *map)
 {
 	mlx_t	*mlx;
@@ -46,6 +59,8 @@ int	start_game(t_map *map)
 		return (game_error(mlx, map));
 	mlx_key_hook(mlx, &player_key_hook, map);
 	if (mlx_loop_hook(mlx, &window_input_hook, mlx) == 0)
+		return (game_error(mlx, map));
+	if (mlx_loop_hook(mlx, &anim_update_hook, map) == 0)
 		return (game_error(mlx, map));
 	mlx_loop(mlx);
 	mlx_terminate(mlx);

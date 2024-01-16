@@ -6,11 +6,11 @@
 /*   By: hpatsi <hpatsi@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 10:20:39 by hpatsi            #+#    #+#             */
-/*   Updated: 2024/01/16 10:21:41 by hpatsi           ###   ########.fr       */
+/*   Updated: 2024/01/16 12:16:49 by hpatsi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long.h"
+#include "so_long_bonus.h"
 
 mlx_instance_t	*get_tile(t_map *map, int x, int y)
 {

@@ -1,40 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   so_long_bonus.c                                    :+:      :+:    :+:   */
+/*   ft_strsfree.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hpatsi <hpatsi@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/03 13:12:38 by hpatsi            #+#    #+#             */
-/*   Updated: 2024/01/16 12:16:55 by hpatsi           ###   ########.fr       */
+/*   Created: 2024/01/16 11:04:10 by hpatsi            #+#    #+#             */
+/*   Updated: 2024/01/16 11:05:35 by hpatsi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long_bonus.h"
+#include "libft.h"
 
-int	check_args(int argc)
+int	ft_strsfree(char **strs)
 {
-	if (argc != 2)
+	int	i;
+
+	i = 0;
+	while (strs[i] != 0)
 	{
-		if (argc < 2)
-			return (map_error("no map given as argument"));
-		if (argc > 2)
-			return (map_error("too many arguments"));
+		free(strs[i]);
+		i++;
 	}
-	return (1);
-}
-
-int	main(int argc, char **argv)
-{
-	t_map	*map;
-
-	if (check_args(argc) == 0)
-		return (1);
-	map = parse_map(argv[1]);
-	if (map == 0)
-		return (1);
-	if (start_game(map) == 0)
-		return (1);
-	free_map(map);
+	free(strs);
 	return (0);
 }

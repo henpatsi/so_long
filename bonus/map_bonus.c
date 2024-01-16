@@ -6,11 +6,11 @@
 /*   By: hpatsi <hpatsi@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 16:26:20 by hpatsi            #+#    #+#             */
-/*   Updated: 2024/01/16 10:21:44 by hpatsi           ###   ########.fr       */
+/*   Updated: 2024/01/16 12:16:03 by hpatsi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long.h"
+#include "so_long_bonus.h"
 
 int	fill_grid(t_gridpos **grid, int size[], int map_fd)
 {

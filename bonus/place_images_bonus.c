@@ -6,11 +6,11 @@
 /*   By: hpatsi <hpatsi@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 09:37:16 by hpatsi            #+#    #+#             */
-/*   Updated: 2024/01/16 10:21:48 by hpatsi           ###   ########.fr       */
+/*   Updated: 2024/01/16 12:16:52 by hpatsi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long.h"
+#include "so_long_bonus.h"
 
 int	place_tile(mlx_t *mlx, t_map *map, t_gridpos *pos, t_images *images)
 {
