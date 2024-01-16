@@ -6,7 +6,7 @@
 /*   By: hpatsi <hpatsi@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 13:12:50 by hpatsi            #+#    #+#             */
-/*   Updated: 2024/01/12 16:41:00 by hpatsi           ###   ########.fr       */
+/*   Updated: 2024/01/16 09:40:21 by hpatsi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,6 @@
 
 # ifndef TILE_SIZE
 #  define TILE_SIZE 50
-# endif
-# ifndef TEXTURE_COUNT
-#  define TEXTURE_COUNT 5
 # endif
 # ifndef FLOOR_TEXTURE
 #  define FLOOR_TEXTURE "./textures/floor.png"
@@ -94,11 +91,14 @@ int				check_map(char	*map_file, int size[]);
 int				check_grid(t_gridpos **grid, int size[], t_player *player);
 
 int				start_game(t_map *map);
+void			move_player(t_map *map, int up, int right);
+
 int				initialize_images(mlx_t *mlx, t_map *map);
+int				place_images(mlx_t *mlx, t_map *map, t_images *images);
+
 void			resize_tiles(int width, int height, void *param);
 int				resize_images(t_images images, int new_size);
 void			limit_to_monitor_size(mlx_t *mlx, t_map *map);
-void			move_player(t_map *map, int up, int right);
 
 mlx_instance_t	*get_tile(t_map *map, int x, int y);
 mlx_instance_t	*get_object(t_map *map, int x, int y);

@@ -49,5 +49,5 @@ int	start_game(t_map *map)
 		return (game_error(mlx, map));
 	mlx_loop(mlx);
 	mlx_terminate(mlx);
-	return (0);
+	return (1);
 }
