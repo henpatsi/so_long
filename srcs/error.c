@@ -32,7 +32,7 @@ int	game_error(mlx_t *mlx, t_map *map)
 	free_map(map);
 	if (mlx != 0)
 		mlx_terminate(mlx);
-	exit (1);
+	return (0);
 }
 
 int	map_error(char *error_message)

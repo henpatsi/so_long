@@ -40,13 +40,13 @@ int	start_game(t_map *map)
 	mlx = mlx_init(map->size[0] * map->tile_size,
 			map->size[1] * map->tile_size, "so_long", false);
 	if (mlx == 0)
-		game_error(mlx, map);
+		return (game_error(mlx, map));
 	limit_to_monitor_size(mlx, map);
 	if (initialize_images(mlx, map) == 0)
-		game_error(mlx, map);
+		return (game_error(mlx, map));
 	mlx_key_hook(mlx, &player_key_hook, map);
 	if (mlx_loop_hook(mlx, &window_input_hook, mlx) == 0)
-		game_error(mlx, map);
+		return (game_error(mlx, map));
 	mlx_loop(mlx);
 	mlx_terminate(mlx);
 	return (0);

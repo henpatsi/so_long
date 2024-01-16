@@ -13,7 +13,7 @@ VALID_MAP_DIR=./maps/valid/
 INVALID_MAP_DIR=./maps/invalid/
 
 # can be leaks or valgrind
-LEAKS_TOOL="leaks"
+LEAKS_TOOL="valgrind"
 
 # Output storage
 LEAKS_LOG=tmp/leaks.log
@@ -40,8 +40,7 @@ if [ $1 == "$ALL_CHECK_ARG" ] || [ $1 == "$INVALID_CHECK_ARG" ]; then
 	for file in $INVALID_MAP_DIR*; do
 		$SO_LONG $file
 		EXIT_CODE=$( echo $? )
-		if [ ${EXIT_CODE} -eq 1 ]
-		then
+		if [ ${EXIT_CODE} -eq 1 ]; then
 			echo -e ${GREEN}"$( basename $file ): [OK]"${NC}
 		else
 			echo -e ${RED}"$( basename $file ): [KO]"${NC}
@@ -51,8 +50,7 @@ if [ $1 == "$ALL_CHECK_ARG" ] || [ $1 == "$INVALID_CHECK_ARG" ]; then
 
 	$SO_LONG file_that_does_not_exist
 	EXIT_CODE=$( echo $? )
-	if [ ${EXIT_CODE} -eq 1 ]
-	then
+	if [ ${EXIT_CODE} -eq 1 ]; then
 		echo -e ${GREEN}"file_that_does_not_exist.ber: [OK]"${NC}
 	else
 		echo -e ${RED}"file_that_does_not_exist.ber: [KO]"${NC}
@@ -61,8 +59,7 @@ if [ $1 == "$ALL_CHECK_ARG" ] || [ $1 == "$INVALID_CHECK_ARG" ]; then
 
 	$SO_LONG
 	EXIT_CODE=$( echo $? )
-	if [ ${EXIT_CODE} -eq 1 ]
-	then
+	if [ ${EXIT_CODE} -eq 1 ]; then
 		echo -e ${GREEN}"noargs: [OK]"${NC}
 	else
 		echo -e ${RED}"noargs.ber: [KO]"${NC}
@@ -71,8 +68,7 @@ if [ $1 == "$ALL_CHECK_ARG" ] || [ $1 == "$INVALID_CHECK_ARG" ]; then
 
 	$SO_LONG $VALID_MAP_DIR/m1.ber "123"
 	EXIT_CODE=$( echo $? )
-	if [ ${EXIT_CODE} -eq 1 ]
-	then
+	if [ ${EXIT_CODE} -eq 1 ]; then
 		echo -e ${GREEN}"2 args: [OK]"${NC}
 	else
 		echo -e ${RED}"2 args.ber: [KO]"${NC}
@@ -81,8 +77,7 @@ if [ $1 == "$ALL_CHECK_ARG" ] || [ $1 == "$INVALID_CHECK_ARG" ]; then
 
 	$SO_LONG ""
 	EXIT_CODE=$( echo $? )
-	if [ ${EXIT_CODE} -eq 1 ]
-	then
+	if [ ${EXIT_CODE} -eq 1 ]; then
 		echo -e ${GREEN}"emptyarg: [OK]"${NC}
 	else
 		echo -e ${RED}"emptyarg: [KO]"${NC}
@@ -98,8 +93,7 @@ if [ $1 == "$ALL_CHECK_ARG" ] || [ $1 == "$VALID_CHECK_ARG" ]; then
 		echo $( basename $file )
 		$SO_LONG $file
 		EXIT_CODE=$( echo $? )
-		if [ ${EXIT_CODE} -eq 0 ]
-		then
+		if [ ${EXIT_CODE} -eq 0 ]; then
 			echo -e ${GREEN}"Valid map: [OK]"${NC}
 		else
 			echo -e ${RED}"Valid map: [KO]"${NC}
@@ -111,27 +105,36 @@ fi
 if [ $1 == "$ALL_CHECK_ARG" ] || [ $1 == "$LEAKS_CHECK_ARG" ]; then
 	printf ${HEADER_COLOR}"\n\n----- LEAKS -----\n\n"${NC}
 
-	EXPECTED_LINES=4
-
-	for file in $INVALID_MAP_DIR*; do
-		leaks --atExit -q -- $SO_LONG $file 1>$LEAKS_LOG 2>$TRASH_LOG
+	if [ $LEAKS_TOOL == "leaks" ]; then
+		echo "testing leaks with leaks"
+		EXPECTED_LINES=4
+		for file in $INVALID_MAP_DIR*; do
+			leaks --atExit -q -- $SO_LONG $file 1>$LEAKS_LOG 2>$TRASH_LOG
+			LINES=$(sed -n '$=' $LEAKS_LOG)
+			if [ $LINES -eq $EXPECTED_LINES ]; then
+				echo -e ${GREEN}"$( basename $file ): [OK]"${NC}
+			else
+				echo -e ${RED}"$( basename $file ): [KO]"${NC}
+			fi
+		done
+		leaks --atExit -q -- $SO_LONG $VALID_MAP_DIR/m1.ber 1>$LEAKS_LOG 2>$TRASH_LOG
 		LINES=$(sed -n '$=' ${LEAKS_LOG})
-		if [ ${LINES} -eq ${EXPECTED_LINES} ]
-		then
-			echo -e ${GREEN}"$( basename $file ): [OK]"${NC}
+		if [ $LINES -eq $EXPECTED_LINES ]; then
+			echo -e ${GREEN}"valid map: [OK]"${NC}
 		else
-			echo -e ${RED}"$( basename $file ): [KO]"${NC}
+			echo -e ${RED}"valid map: [KO]"${NC}
 		fi
-	done
-
-	leaks --atExit -q -- $SO_LONG $VALID_MAP_DIR/m1.ber 1>$LEAKS_LOG 2>$TRASH_LOG
-	LINES=$(sed -n '$=' ${LEAKS_LOG})
-	if [ ${LINES} -eq ${EXPECTED_LINES} ]
-	then
-		echo -e ${GREEN}"valid map: [OK]"${NC}
 	else
-		echo -e ${RED}"valid map: [KO]"${NC}
+		echo "testing leaks with valgrind"
+		echo "(only invalid maps, valid maps result in weird behaviour)"
+		rm -f $LEAKS_LOG
+		for file in $INVALID_MAP_DIR*; do
+			echo $file >> $LEAKS_LOG
+			valgrind $SO_LONG $file 2>>$LEAKS_LOG
+		done
+		grep "at exit" $LEAKS_LOG
 	fi
+
 fi
 
 printf ${HEADER_COLOR}"\n\n ----- \n\n"${NC}

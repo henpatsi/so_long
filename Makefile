@@ -28,7 +28,7 @@ HEADERS = -I ./includes -I ./MLX42/include/MLX42
 
 DEPENDENCIES = -lglfw -L"/Users/$(USER)/.brew/opt/glfw/lib/"
 
-CFLAGS += -Wall -Wextra -Werror $(HEADERS) -g
+CFLAGS += -Wall -Wextra -Werror $(HEADERS)
 
 all: $(NAME)
 
@@ -44,7 +44,7 @@ $(MLX42): $(MLX42_DIR)
 	make -C $(MLX42_DIR)
 
 $(MLX42_DIR):
-	cmake ./MLX42/ -DDEBUG=1 -B $(MLX42_DIR)
+	cmake ./MLX42/ -B $(MLX42_DIR)
 
 clean:
 	make clean -C ./libft/

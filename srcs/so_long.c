@@ -28,12 +28,13 @@ int	main(int argc, char **argv)
 {
 	t_map	*map;
 
-	if (!check_args(argc))
+	if (check_args(argc) == 0)
 		return (1);
 	map = parse_map(argv[1]);
 	if (map == 0)
 		return (1);
-	start_game(map);
+	if (start_game(map) == 0)
+		return (1);
 	free_map(map);
 	return (0);
 }
