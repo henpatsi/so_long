@@ -11,13 +11,11 @@ VALID_MAP_DIR=./maps/valid/
 INVALID_MAP_DIR=./maps/invalid/
 
 # can be leaks or valgrind
-LEAKS_TOOL="valgrind"
+LEAKS_TOOL=leaks
 
 # Output storage
 LEAKS_LOG=tmp/leaks.log
 TRASH_LOG=tmp/trash.log
-rm -f $LEAKS_LOG
-rm -f $TRASH_LOG
 
 # Colors
 NC='\033[0m'
@@ -132,7 +130,6 @@ if [ $1 == "$ALL_CHECK_ARG" ] || [ $1 == "$LEAKS_CHECK_ARG" ]; then
 		done
 		grep "at exit" $LEAKS_LOG
 	fi
-
 fi
 
 printf ${HEADER_COLOR}"\n\n ----- \n\n"${NC}

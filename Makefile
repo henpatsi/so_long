@@ -6,7 +6,7 @@
 #    By: hpatsi <hpatsi@student.hive.fi>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/03 13:12:13 by hpatsi            #+#    #+#              #
-#    Updated: 2024/01/16 12:51:15 by hpatsi           ###   ########.fr        #
+#    Updated: 2024/01/17 09:44:29 by hpatsi           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,7 +36,7 @@ HEADERS = -I ./includes -I ./MLX42/include/MLX42
 
 DEPENDENCIES = -lglfw -L"/Users/$(USER)/.brew/opt/glfw/lib/"
 
-CFLAGS += -Wall -Wextra -Werror $(HEADERS) -g
+CFLAGS += -Wall -Wextra -Werror $(HEADERS)
 
 all: $(NAME)
 

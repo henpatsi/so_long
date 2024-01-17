@@ -6,7 +6,7 @@
 /*   By: hpatsi <hpatsi@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 09:37:16 by hpatsi            #+#    #+#             */
-/*   Updated: 2024/01/16 15:18:32 by hpatsi           ###   ########.fr       */
+/*   Updated: 2024/01/17 09:42:09 by hpatsi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,9 @@ int	place_tile(mlx_t *mlx, t_map *map, t_gridpos *pos, t_images *images)
 		pos->tile_img = images->wall_img;
 	}
 	if (pos->tile_inst == -1)
-			return (0);
+		return (0);
 	mlx_set_instance_depth(get_tile(map, pos->x, pos->y), 0);
-	return(1);
+	return (1);
 }
 
 int	place_object(mlx_t *mlx, t_map *map, t_gridpos *pos, t_images *images)
@@ -49,7 +49,7 @@ int	place_object(mlx_t *mlx, t_map *map, t_gridpos *pos, t_images *images)
 		pos->obj_img = images->collectable_img;
 	}
 	if (pos->obj_inst == -1)
-			return (0);
+		return (0);
 	mlx_set_instance_depth(get_object(map, pos->x, pos->y), 5);
 	return (1);
 }
@@ -59,10 +59,10 @@ int	place_player(mlx_t *mlx, t_map *map, t_gridpos *pos, t_images *images)
 	if (pos->label != 'P')
 		return (1);
 	map->player.inst = mlx_image_to_window(mlx, images->player_img,
-		pos->x * map->tile_size, pos->y * map->tile_size);
+			pos->x * map->tile_size, pos->y * map->tile_size);
 	map->player.img = images->player_img;
 	if (map->player.inst == -1)
-			return (0);
+		return (0);
 	mlx_set_instance_depth(get_player(map), 10);
 	return (1);
 }
@@ -91,5 +91,5 @@ int	place_images(mlx_t *mlx, t_map *map, t_images *images)
 	map->moves_img = mlx_put_string(mlx, "0", 0, 0);
 	if (map->moves_img == 0)
 		return (0);
-	return(1);
+	return (1);
 }
