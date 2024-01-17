@@ -1,4 +1,9 @@
+Moves: 1
+Moves: 2
+Moves: 3
+Moves: 4
+VICTORY!
 leaks Report Version: 4.0
-Process 54479: 19452 nodes malloced for 6630 KB
-Process 54479: 0 leaks for 0 total leaked bytes.
+Process 64596: 19504 nodes malloced for 6636 KB
+Process 64596: 0 leaks for 0 total leaked bytes.
 

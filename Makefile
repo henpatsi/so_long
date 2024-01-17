@@ -6,7 +6,7 @@
 #    By: hpatsi <hpatsi@student.hive.fi>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/03 13:12:13 by hpatsi            #+#    #+#              #
-#    Updated: 2024/01/17 09:44:29 by hpatsi           ###   ########.fr        #
+#    Updated: 2024/01/17 10:16:05 by hpatsi           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -72,6 +72,6 @@ fclean: clean
 	rm -f $(LIBFT)
 	rm -f $(NAME)
 	rm -f $(BONUS)
-	make clean -C $(MLX42_DIR)
+	rm -rf $(MLX42_DIR)
 
 re: fclean all

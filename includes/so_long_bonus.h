@@ -6,12 +6,12 @@
 /*   By: hpatsi <hpatsi@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 13:12:50 by hpatsi            #+#    #+#             */
-/*   Updated: 2024/01/16 15:15:53 by hpatsi           ###   ########.fr       */
+/*   Updated: 2024/01/17 10:09:21 by hpatsi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SO_LONG_H
-# define SO_LONG_H
+#ifndef SO_LONG_BONUS_H
+# define SO_LONG_BONUS_H
 
 # include <stdio.h>
 # include <fcntl.h>
@@ -41,8 +41,17 @@
 # ifndef ANIM_DELAY
 #  define ANIM_DELAY 0.2
 # endif
-# ifndef PLAYER_ANIM_FILES
-#  define PLAYER_ANIM_FILES "./textures/animated_player/0.png:./textures/animated_player/1.png:./textures/animated_player/2.png:./textures/animated_player/3.png"
+# ifndef PLAYER_ANIM_0
+#  define PLAYER_ANIM_0 "./textures/animated_player/0.png"
+# endif
+# ifndef PLAYER_ANIM_1
+#  define PLAYER_ANIM_1 "./textures/animated_player/1.png"
+# endif
+# ifndef PLAYER_ANIM_2
+#  define PLAYER_ANIM_2 "./textures/animated_player/2.png"
+# endif
+# ifndef PLAYER_ANIM_3
+#  define PLAYER_ANIM_3 "./textures/animated_player/3.png"
 # endif
 
 typedef struct s_textures
@@ -65,16 +74,16 @@ typedef struct s_images
 
 typedef struct s_player
 {
-	int	x;
-	int	y;
+	int			x;
+	int			y;
 	mlx_image_t	*img;
-	int 		inst;
+	int			inst;
 }	t_player;
 
 typedef struct s_gridpos
 {
-	int	x;
-	int	y;
+	int			x;
+	int			y;
 	char		label;
 	mlx_image_t	*tile_img;
 	mlx_image_t	*obj_img;

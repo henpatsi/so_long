@@ -6,7 +6,7 @@
 /*   By: hpatsi <hpatsi@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 13:12:50 by hpatsi            #+#    #+#             */
-/*   Updated: 2024/01/17 09:44:26 by hpatsi           ###   ########.fr       */
+/*   Updated: 2024/01/17 10:05:06 by hpatsi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,16 +58,16 @@ typedef struct s_images
 
 typedef struct s_player
 {
-	int	x;
-	int	y;
+	int			x;
+	int			y;
 	mlx_image_t	*img;
-	int 		inst;
+	int			inst;
 }	t_player;
 
 typedef struct s_gridpos
 {
-	int	x;
-	int	y;
+	int			x;
+	int			y;
 	char		label;
 	mlx_image_t	*tile_img;
 	mlx_image_t	*obj_img;
